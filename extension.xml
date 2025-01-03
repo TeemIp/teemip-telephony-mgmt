@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension format="1.0">
+    <extension_code>teemip-phone-number-mgmt</extension_code>
+    <company>TeemIp</company>
+    <author><![CDATA[Christophe Naud]]></author>
+    <label><![CDATA[Phone Number Management]]></label>
+    <description><![CDATA[TeemIp extension that provides phone number management]]></description>
+    <version>1.0.0-dev</version>
+    <release_date>2025-07-02</release_date>
+    <version_description><![CDATA[Initial release]]></version_description>
+    <itop_version_min>3.2.1</itop_version_min>
+    <status>stable</status>
+    <mandatory>false</mandatory>
+    <more_info_url>https://wiki.teemip.net/doku.php?id=extensions:teemip-phone-number-mgmt</more_info_url>
+</extension>
