@@ -20,7 +20,6 @@ SetupWebPage::AddModule(
         ),
         'mandatory' => false,
         'visible' => true,
-        'installer' => 'N',
 
         // Components
         //
