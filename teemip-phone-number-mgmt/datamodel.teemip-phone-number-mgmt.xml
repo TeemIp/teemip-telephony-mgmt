@@ -138,23 +138,22 @@
                 </field>
             </fields>
             <event_listeners>
-                <event_listener id="OnPNObjectBeforeWriteRequestedByPhoneNumberMgmt">
+                <event_listener id="OnPNObjectBeforeWriteRequestedByPNObject">
                     <event>EVENT_DB_BEFORE_WRITE</event>
-                    <callback>OnPNObjectBeforeWriteRequestedByPhoneNumberMgmt</callback>
+                    <callback>OnPNObjectBeforeWriteRequestedByPNObject</callback>
                     <rank>100</rank>
                 </event_listener>
             </event_listeners>
             <methods>
-                <method id="OnPNObjectBeforeWriteRequestedByPhoneNumberMgmt">
+                <method id="OnPNObjectBeforeWriteRequestedByPNObject">
                     <comment/>
                     <static>false</static>
                     <access>public</access>
                     <type>EventListener</type>
-                    <code><![CDATA[    public function OnPNObjectBeforeWriteRequestedByPhoneNumberMgmt(Combodo\iTop\Service\Events\EventData $oEventData)
+                    <code><![CDATA[    public function OnPNObjectBeforeWriteRequestedByPNObject(Combodo\iTop\Service\Events\EventData $oEventData)
     {
         $aEventData = $oEventData->GetEventData();
         if ($aEventData['is_new']) {
-        	// We are in the AfterInsert situation
     		// Set allocation and released date as required
     		$sStatus = $this->Get('status');
 	    	if ($sStatus == 'allocated') {
@@ -163,7 +162,6 @@
 	    		$this->Set('release_date', time());
 		    }
 		} else {
-		    // We are in the AfterUpdate situation
             // Set allocation and released date as required
             $sStatus = $this->Get('status');
             $soriginalStatus = $this->GetOriginal('status');
