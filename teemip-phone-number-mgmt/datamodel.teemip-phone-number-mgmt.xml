@@ -1099,6 +1099,34 @@
             </group>
         </groups>
         <profiles>
+            <profile id="5328" _delta="define">
+                <name>Phone Numbers Manager</name>
+                <description>Person in charge of the phone numbers space</description>
+                <groups>
+                    <group id="PNObject">
+                        <actions>
+                            <action id="action:write">allow</action>
+                            <action id="action:bulk write">allow</action>
+                            <action id="action:delete">allow</action>
+                            <action id="action:bulk delete">allow</action>
+                        </actions>
+                    </group>
+                    <group id="LnkToPNObject">
+                        <actions>
+                            <action id="action:write">allow</action>
+                            <action id="action:bulk write">allow</action>
+                            <action id="action:delete">allow</action>
+                            <action id="action:bulk delete">allow</action>
+                        </actions>
+                    </group>
+                    <group id="*">
+                        <actions>
+                            <action id="action:read">allow</action>
+                            <action id="action:bulk read">allow</action>
+                        </actions>
+                    </group>
+                </groups>
+            </profile>
         </profiles>
     </user_rights>
 </itop_design>
