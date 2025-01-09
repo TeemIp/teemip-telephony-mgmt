@@ -568,6 +568,16 @@
                     <default_value/>
                     <is_null_allowed>false</is_null_allowed>
                 </field>
+                <field id="occupancy" xsi:type="AttributePercentage">
+                    <sql>occupancy</sql>
+                    <default_value>0</default_value>
+                    <is_null_allowed>true</is_null_allowed>
+                </field>
+                <field id="phonenumbers_list" xsi:type="AttributeLinkedSet">
+                    <linked_class>PhoneNumber</linked_class>
+                    <ext_key_to_me>pnrange_id</ext_key_to_me>
+                    <edit_mode>none</edit_mode>
+                </field>
             </fields>
             <methods/>
             <presentation>
@@ -579,23 +589,26 @@
                                 <item id="fieldset:Class:PNRange:baseinfo">
                                     <rank>10</rank>
                                     <items>
-                                        <item id="name">
+                                        <item id="org_id">
                                             <rank>10</rank>
                                         </item>
-                                        <item id="org_id">
+                                        <item id="name">
                                             <rank>20</rank>
                                         </item>
                                         <item id="status">
                                             <rank>30</rank>
                                         </item>
-                                        <item id="requestor_id">
+                                        <item id="comment">
                                             <rank>40</rank>
                                         </item>
-                                        <item id="allocation_date">
+                                        <item id="requestor_id">
                                             <rank>50</rank>
                                         </item>
-                                        <item id="release_date">
+                                        <item id="allocation_date">
                                             <rank>60</rank>
+                                        </item>
+                                        <item id="release_date">
+                                            <rank>70</rank>
                                         </item>
                                     </items>
                                 </item>
@@ -605,24 +618,24 @@
                             <rank>10</rank>
                             <items>
                                 <item id="fieldset:Class:PNRange:rangeinfo">
-                            <rank>10</rank>
-                            <items>
-                                <item id="fieldset:Class:PNRange:rangeinfo">
                                     <rank>10</rank>
                                     <items>
-                                        <item id="parent_id">
+                                        <item id="fieldset:Class:PNRange:numberinginfo">
                                             <rank>10</rank>
-                                        </item>
-                                        <item id="firstnumber">
-                                            <rank>20</rank>
-                                        </item>
-                                        <item id="lastnumber">
-                                            <rank>30</rank>
+                                            <items>
+                                                <item id="parent_id">
+                                                    <rank>10</rank>
+                                                </item>
+                                                <item id="firstnumber">
+                                                    <rank>20</rank>
+                                                </item>
+                                                <item id="lastnumber">
+                                                    <rank>30</rank>
+                                                </item>
+                                            </items>
                                         </item>
                                     </items>
                                 </item>
-                            </items>
-                        </item>
                             </items>
                         </item>
                         <item id="contacts_list">
@@ -630,6 +643,9 @@
                         </item>
                         <item id="documents_list">
                             <rank>40</rank>
+                        </item>
+                        <item id="phonenumbers_list">
+                            <rank>50</rank>
                         </item>
                     </items>
                 </details>
@@ -678,11 +694,14 @@
                         <item id="lastnumber">
                             <rank>30</rank>
                         </item>
-                        <item id="org_id">
+                        <item id="occupancy">
                             <rank>40</rank>
                         </item>
-                        <item id="allocation_date">
+                        <item id="org_id">
                             <rank>50</rank>
+                        </item>
+                        <item id="allocation_date">
+                            <rank>60</rank>
                         </item>
                     </items>
                 </list>
@@ -720,9 +739,9 @@
                         <attribute id="number"/>
                     </attributes>
                 </naming>
-                 <style>
-                     <icon>asset/img/icons8-phone.svg</icon>
-                 </style>
+                <style>
+                    <icon>asset/img/icons8-phone.svg</icon>
+                </style>
                 <reconciliation>
                     <attributes>
                         <attribute id="org_id"/>
@@ -751,7 +770,19 @@
                     <default_value/>
                     <is_null_allowed>false</is_null_allowed>
                 </field>
+                <field id="pnextensions_list" xsi:type="AttributeLinkedSet">
+                    <linked_class>PNExtension</linked_class>
+                    <ext_key_to_me>phonenumber_id</ext_key_to_me>
+                    <edit_mode>none</edit_mode>
+                </field>
             </fields>
+            <event_listeners>
+                <event_listener id="OnPhoneNumberAfterWriteRequestedByPNRange">
+                    <event>EVENT_DB_AFTER_WRITE</event>
+                    <callback>OnPhoneNumberAfterWriteRequestedByPNRange</callback>
+                    <rank>100</rank>
+                </event_listener>
+            </event_listeners>
             <methods/>
             <presentation>
                 <details>
@@ -763,9 +794,12 @@
                                     <rank>10</rank>
                                     <items>
                                         <item id="org_id">
-                                            <rank>20</rank>
+                                            <rank>10</rank>
                                         </item>
                                         <item id="status">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="comment">
                                             <rank>30</rank>
                                         </item>
                                         <item id="requestor_id">
@@ -803,6 +837,9 @@
                         <item id="documents_list">
                             <rank>40</rank>
                         </item>
+                        <item id="pnextensions_list">
+                            <rank>50</rank>
+                        </item>
                     </items>
                 </details>
                 <default_search>
@@ -835,21 +872,27 @@
                 </search>
                 <list>
                     <items>
-                        <item id="pnrange_id">
+                        <item id="status">
                             <rank>10</rank>
                         </item>
-                        <item id="org_id">
+                        <item id="pnrange_id">
                             <rank>20</rank>
                         </item>
-                        <item id="allocation_date">
+                        <item id="org_id">
                             <rank>30</rank>
+                        </item>
+                        <item id="allocation_date">
+                            <rank>40</rank>
                         </item>
                     </items>
                 </list>
                 <summary>
                     <items>
-                        <item id="pnrange_id">
+                        <item id="status">
                             <rank>10</rank>
+                        </item>
+                        <item id="pnrange_id">
+                            <rank>20</rank>
                         </item>
                     </items>
                 </summary>
@@ -871,7 +914,8 @@
                 <db_final_class_field>finalclass</db_final_class_field>
                 <naming>
                     <attributes>
-                        <attribute id="number"/>
+                        <attribute id="phonenumber_number"/>
+                        <attribute id="code"/>
                     </attributes>
                 </naming>
                 <style>
@@ -880,7 +924,8 @@
                 <reconciliation>
                     <attributes>
                         <attribute id="org_id"/>
-                        <attribute id="number"/>
+                        <attribute id="phonenumber_id"/>
+                        <attribute id="code"/>
                     </attributes>
                 </reconciliation>
             </properties>
@@ -900,8 +945,8 @@
                     <extkey_attcode>phonenumber_id</extkey_attcode>
                     <target_attcode>number</target_attcode>
                 </field>
-                <field id="number" xsi:type="AttributeString">
-                    <sql>number</sql>
+                <field id="code" xsi:type="AttributeString">
+                    <sql>code</sql>
                     <default_value/>
                     <is_null_allowed>false</is_null_allowed>
                 </field>
@@ -922,14 +967,17 @@
                                         <item id="status">
                                             <rank>30</rank>
                                         </item>
-                                        <item id="requestor_id">
+                                        <item id="comment">
                                             <rank>40</rank>
                                         </item>
-                                        <item id="allocation_date">
+                                        <item id="requestor_id">
                                             <rank>50</rank>
                                         </item>
-                                        <item id="release_date">
+                                        <item id="allocation_date">
                                             <rank>60</rank>
+                                        </item>
+                                        <item id="release_date">
+                                            <rank>70</rank>
                                         </item>
                                     </items>
                                 </item>
@@ -944,7 +992,7 @@
                                         <item id="phonenumber_id">
                                             <rank>10</rank>
                                         </item>
-                                        <item id="number">
+                                        <item id="code">
                                             <rank>20</rank>
                                         </item>
                                     </items>
