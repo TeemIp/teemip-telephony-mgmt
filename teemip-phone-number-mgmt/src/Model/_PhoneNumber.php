@@ -52,5 +52,26 @@ class _PhoneNumber extends PNObject {
         }
     }
 
+    /**
+     * Event to update PNRange once PhoneNumber has been deleted
+     *
+     * @param EventData $oEventData
+     * @return void
+     * @throws \ArchivedObjectException
+     * @throws \CoreCannotSaveObjectException
+     * @throws \CoreException
+     * @throws \CoreUnexpectedValue
+     */
+    public function OnPhoneNumberAfterDeleteRequestedByPNRange(EventData $oEventData): void
+    {
+        // Update occupancy of PNRange
+        $iRangeId = $this->Get('pnrange_id');
+        $oPNRange = MetaModel::GetObject('PNRange', $iRangeId);
+        if ($oPNRange) {
+            $oPNRange->Set('occupancy', $oPNRange->GetOccupancy());
+            $oPNRange->DBUpdate();
+        }
+    }
+
 }
 

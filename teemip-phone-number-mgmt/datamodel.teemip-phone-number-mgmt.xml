@@ -782,6 +782,11 @@
                     <callback>OnPhoneNumberAfterWriteRequestedByPNRange</callback>
                     <rank>100</rank>
                 </event_listener>
+                <event_listener id="OnPhoneNumberAfterDeleteRequestedByPNRange">
+                    <event>EVENT_DB_AFTER_DELETE</event>
+                    <callback>OnPhoneNumberAfterDeleteRequestedByPNRange</callback>
+                    <rank>110</rank>
+                </event_listener>
             </event_listeners>
             <methods/>
             <presentation>
