@@ -510,6 +510,10 @@
         </class>
         <class id="PNRange" _delta="define">
             <parent>PNObject</parent>
+            <php_parent>
+                <name>TeemIp\TeemIp\Extension\PhoneNumberManagement\Model\_PNRange</name>
+                <file>src/Model/_PNRange.php</file>
+            </php_parent>
             <properties>
                 <comment/>
                 <category>bizmodel,pnmgmt</category>
@@ -701,7 +705,11 @@
         </class>
         <class id="PhoneNumber" _delta="define">
             <parent>PNObject</parent>
-             <properties>
+            <php_parent>
+                <name>TeemIp\TeemIp\Extension\PhoneNumberManagement\Model\_PhoneNumber</name>
+                <file>src/Model/_PhoneNumber.php</file>
+            </php_parent>
+            <properties>
                 <comment/>
                 <category>bizmodel,pnmgmt</category>
                 <abstract>false</abstract>
@@ -851,6 +859,10 @@
         </class>
         <class id="PNExtension" _delta="define">
             <parent>PNObject</parent>
+            <php_parent>
+                <name>TeemIp\TeemIp\Extension\PhoneNumberManagement\Model\_PNExtension</name>
+                <file>src/Model/_PNExtension.php</file>
+            </php_parent>
             <properties>
                 <comment/>
                 <category>bizmodel,pnmgmt</category>

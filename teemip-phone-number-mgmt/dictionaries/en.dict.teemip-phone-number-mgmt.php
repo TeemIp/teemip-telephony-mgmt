@@ -108,7 +108,7 @@ Dict::Add('EN US', 'English', 'English', array(
 	'Class:PNRange' => 'Phone Number Range',
 	'Class:PNRange+' => '',
 	'Class:PNRange:baseinfo' => 'General Information',
-	'Class:PNRange:rangeinfo' => 'Range Information',
+	'Class:PNRange:numberinginfo' => 'Numbering Information',
 	'Class:PNRange/Attribute:name' => 'Name',
 	'Class:PNRange/Attribute:name+' => '',
     'Class:PNRange/Attribute:parent_id' => 'Parent range',
@@ -119,6 +119,10 @@ Dict::Add('EN US', 'English', 'English', array(
 	'Class:PNRange/Attribute:firstnumber+' => 'First number of the range',
     'Class:PNRange/Attribute:lastnumber' => 'Last number',
     'Class:PNRange/Attribute:lastnumber+' => 'Last number of the range',
+    'Class:PNRange/Attribute:occupancy' => 'Registered numbers',
+    'Class:PNRange/Attribute:occupancy+' => 'Percentage of phone numbers that belong to the range',
+    'Class:PNRange/Attribute:phonenumbers_list' => 'Phone numbers',
+    'Class:PNRange/Attribute:phonenumbers_list+' => 'All the pone numbers that belong to the range',
 ));
 
 //
@@ -136,6 +140,8 @@ Dict::Add('EN US', 'English', 'English', array(
     'Class:PhoneNumber/Attribute:pnrange_name+' => '',
     'Class:PhoneNumber/Attribute:number' => 'Number',
     'Class:PhoneNumber/Attribute:number+' => '',
+    'Class:PhoneNumber/Attribute:pnextensions_list' => 'Extensions',
+    'Class:PhoneNumber/Attribute:pnextensions_list+' => 'All the extensions attached to that number',
 ));
 
 //
@@ -145,14 +151,15 @@ Dict::Add('EN US', 'English', 'English', array(
 Dict::Add('EN US', 'English', 'English', array(
     'Class:PNExtension' => 'Extension',
     'Class:PNExtension+' => '',
+    'Class:PNExtension/Name' => '%1$s - %2$s',
     'Class:PNExtension:baseinfo' => 'General Information',
     'Class:PNExtension:numberinfo' => 'Extension Information',
     'Class:PNExtension/Attribute:phonenumber_id' => 'Phone number',
     'Class:PNExtension/Attribute:phonenumber_id+' => '',
     'Class:PNExtension/Attribute:phonenumber_number' => 'Phone number',
     'Class:PNExtension/Attribute:phonenumber_number+' => '',
-    'Class:PNExtension/Attribute:number' => 'Number',
-    'Class:PNExtension/Attribute:number+' => '',
+    'Class:PNExtension/Attribute:code' => 'Code',
+    'Class:PNExtension/Attribute:code+' => '',
 ));
 
 //
