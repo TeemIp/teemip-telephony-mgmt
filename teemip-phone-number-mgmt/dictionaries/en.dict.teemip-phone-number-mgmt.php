@@ -108,13 +108,20 @@ Dict::Add('EN US', 'English', 'English', array(
 	'Class:PNRange' => 'Phone Number Range',
 	'Class:PNRange+' => '',
 	'Class:PNRange:baseinfo' => 'General Information',
+    'Class:PNRange:delegationinfo' => 'Delegation Information',
 	'Class:PNRange:numberinginfo' => 'Numbering Information',
+    'Class:PNRange:DelegatedToChild' => '<delegation_highlight>Delegated to organization: </delegation_highlight>%1$s',
+    'Class:PNRange:DelegatedFromParent' => '<delegation_highlight>Delegated from organization: </delegation_highlight>%1$s',
 	'Class:PNRange/Attribute:name' => 'Name',
 	'Class:PNRange/Attribute:name+' => '',
+    'Class:PNRange/Attribute:parent_org_id' => 'Delegated from',
+    'Class:PNRange/Attribute:parent_org_id+' => 'Organization where the phone number range has been delegated from',
+    'Class:PNRange/Attribute:parent_org_name' => 'Delegating organization name',
+    'Class:PNRange/Attribute:parent_org_name+' => 'Name of the organization where the phone number range has been delegated from',
     'Class:PNRange/Attribute:parent_id' => 'Parent range',
-    'Class:PNRange/Attribute:parent_id+' => 'Parent range that the range belongs to',
+    'Class:PNRange/Attribute:parent_id+' => 'Parent phone number range that the range belongs to',
     'Class:PNRange/Attribute:parent_name' => 'Parent name',
-    'Class:PNRange/Attribute:parent_name+' => '',
+    'Class:PNRange/Attribute:parent_name+' => 'Name of the parent phone number range',
 	'Class:PNRange/Attribute:firstnumber' => 'First number',
 	'Class:PNRange/Attribute:firstnumber+' => 'First number of the range',
     'Class:PNRange/Attribute:lastnumber' => 'Last number',
@@ -182,4 +189,25 @@ Dict::Add('EN US', 'English', 'English', array(
     'Menu:PNExtension' => 'Extensions',
     'Menu:PNExtension+' => '',
     'Menu:PNSpace:PNObjects' => 'Phone Number Objects',
+
+//
+// Management of PNRanges
+//
+    // Creation Management
+    'UI:PNManagement:Action:New:Domain:NameCollision' => 'Domain name already exists!',
+
+    // Display list of PNRanges
+    'UI:PNManagement:Action:DisplayList:PNRange' => 'Display List',
+    'UI:PNManagement:Action:DisplayList:PNRange+' => '',
+    'UI:PNManagement:Action:DisplayList:PNRange:PageTitle_Class' => 'Phone Number Ranges',
+    'UI:PNManagement:Action:DisplayList:PNRange:Title_Class' => 'Phone Number Ranges',
+
+    // Display tree of PNRanges
+    'UI:PNManagement:Action:DisplayTree:PNRange' => 'Display Tree',
+    'UI:PNManagement:Action:DisplayTree:PNRange+' => '',
+    'UI:IPManagement:Action:DisplayTree:PNRange:PageTitle_Class' => 'Phone Number Ranges',
+    'UI:IPManagement:Action:DisplayTree:PNRange:Title_Class' => 'Phone Number Ranges',
+    'UI:IPManagement:Action:DisplayTree:PNRange:OrgName' => 'Organization %1$s',
+
+
 ));
