@@ -4,11 +4,6 @@
  * @license     http://opensource.org/licenses/AGPL-3.0
  */
 
-//////////////////////////////////////////////////////////////////////
-// Classes in 'teemip-phone-number-mgmt Module'
-//////////////////////////////////////////////////////////////////////
-//
-
 //
 // Class: PNObject
 //
@@ -87,7 +82,7 @@ Dict::Add('EN US', 'English', 'English', array(
 //
 
 Dict::Add('EN US', 'English', 'English', array(
-    'Class:lnkPNObjectToTicket' => 'Link IP Object / Ticket',
+    'Class:lnkPNObjectToTicket' => 'Link PN Object / Ticket',
     'Class:lnkPNObjectToTicket+' => '',
     'Class:lnkPNObjectToTicket/Name' => '%1$s / %2$s',
     'Class:lnkPNObjectToTicket/Attribute:pnobject_id' => 'PN Object',
