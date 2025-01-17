@@ -514,7 +514,7 @@
             </php_parent>
             <properties>
                 <comment/>
-                <category>bizmodel,pnmgmt</category>
+                <category>bizmodel,searchable,pnmgmt</category>
                 <abstract>false</abstract>
                 <key_type>autoincrement</key_type>
                 <db_table>pnrange</db_table>
@@ -749,7 +749,7 @@
             </php_parent>
             <properties>
                 <comment/>
-                <category>bizmodel,pnmgmt</category>
+                <category>bizmodel,searchable,pnmgmt</category>
                 <abstract>false</abstract>
                 <key_type>autoincrement</key_type>
                 <db_table>phonenumber</db_table>
@@ -932,7 +932,7 @@
             </php_parent>
             <properties>
                 <comment/>
-                <category>bizmodel,pnmgmt</category>
+                <category>bizmodel,searchable,pnmgmt</category>
                 <abstract>false</abstract>
                 <key_type>autoincrement</key_type>
                 <db_table>PNExtension</db_table>
