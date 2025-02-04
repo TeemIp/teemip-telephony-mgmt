@@ -1,0 +1,1074 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.2" load="strict">
+    <classes>
+        <class id="SimCard" _delta="define">
+            <parent>PhysicalDevice</parent>
+            <properties>
+                <category>bizmodel,searchable,pnmgmt</category>
+                <abstract>false</abstract>
+                <key_type>autoincrement</key_type>
+                <db_table>simcard</db_table>
+                <db_key_field>id</db_key_field>
+                <db_final_class_field>finalclass</db_final_class_field>
+                <naming>
+                    <attributes>
+                        <attribute id="name"/>
+                    </attributes>
+                </naming>
+                <style>
+                    <icon>asset/img/icons8-sim-card.svg</icon>
+                </style>
+                <order>
+                    <columns>
+                        <column id="name" ascending="true"/>
+                    </columns>
+                </order>
+                <reconciliation>
+                    <attributes>
+                        <attribute id="name"/>
+                        <attribute id="org_id"/>
+                        <attribute id="organization_name"/>
+                    </attributes>
+                </reconciliation>
+                <icon>images/sim.png</icon>
+            </properties>
+            <fields>
+                <field id="format" xsi:type="AttributeEnum">
+                    <sql>format</sql>
+                    <sort_type>rank</sort_type>
+                    <values>
+                        <value id="regular">
+                            <code>regular</code>
+                            <rank>10</rank>
+                        </value>
+                        <value id="mini">
+                            <code>mini</code>
+                            <rank>20</rank>
+                        </value>
+                        <value id="micro">
+                            <code>micro</code>
+                            <rank>30</rank>
+                        </value>
+                        <value id="nano">
+                            <code>nano</code>
+                            <rank>40</rank>
+                        </value>
+                        <value id="esim">
+                            <code>esim</code>
+                            <rank>50</rank>
+                        </value>
+                        <value id="regular_to_micro">
+                            <code>regular_to_micro</code>
+                            <rank>60</rank>
+                        </value>
+                        <value id="regular_to_nano">
+                            <code>regular_to_nano</code>
+                            <rank>70</rank>
+                        </value>
+                        <value id="micro_to_nano">
+                            <code>micro_to_nano</code>
+                            <rank>80</rank>
+                        </value>
+                    </values>
+                    <default_value>mini</default_value>
+                    <is_null_allowed>true</is_null_allowed>
+                    <display_style>list</display_style>
+                </field>
+                <field id="iccid" xsi:type="AttributeString">
+                    <sql>iccid</sql>
+                    <default_value>89</default_value>
+                    <is_null_allowed>false</is_null_allowed>
+                    <validation_pattern>^89\d{17,18}$|^\d{13}$</validation_pattern>
+                </field>
+                <field id="carrier_id" xsi:type="AttributeExternalKey">
+                    <sql>carrier_id</sql>
+                    <target_class>Organization</target_class>
+                    <is_null_allowed>true</is_null_allowed>
+                    <on_target_delete>DEL_MANUAL</on_target_delete>
+                </field>
+                <field id="phonenumber_id" xsi:type="AttributeExternalKey">
+                    <sql>phonenumber_id</sql>
+                    <target_class>PhoneNumber</target_class>
+                    <filter><![CDATA[SELECT PhoneNumber AS p WHERE p.org_id = :this->org_id]]></filter>
+                    <dependencies>
+                        <attribute id="org_id"/>
+                    </dependencies>
+                    <is_null_allowed>false</is_null_allowed>
+                    <on_target_delete>DEL_MANUAL</on_target_delete>
+                    <jointype/>
+                </field>
+                <field id="phonenumber" xsi:type="AttributeExternalField">
+                    <extkey_attcode>phonenumber_id</extkey_attcode>
+                    <target_attcode>number</target_attcode>
+                </field>
+                <field id="pin" xsi:type="AttributeString">
+                    <sql>pin</sql>
+                    <is_null_allowed>true</is_null_allowed>
+                    <default_value/>
+                    <validation_pattern>^\d{4,8}$</validation_pattern>
+                </field>
+                <field id="pin2" xsi:type="AttributeString">
+                    <sql>pin2</sql>
+                    <is_null_allowed>true</is_null_allowed>
+                    <default_value/>
+                    <validation_pattern>^\d{4,8}$</validation_pattern>
+                </field>
+                <field id="puk" xsi:type="AttributeString">
+                    <sql>puk</sql>
+                    <is_null_allowed>true</is_null_allowed>
+                    <default_value/>
+                    <validation_pattern>^\d{8}$</validation_pattern>
+                </field>
+                <field id="puk2" xsi:type="AttributeString">
+                    <sql>puk2</sql>
+                    <is_null_allowed>true</is_null_allowed>
+                    <default_value/>
+                    <validation_pattern>^\d{8}$</validation_pattern>
+                </field>
+                <field id="contact_id" xsi:type="AttributeExternalKey">
+                    <sql>contact_id</sql>
+                    <target_class>Contact</target_class>
+                    <filter><![CDATA[SELECT Contact AS c WHERE c.org_id = :this->org_id]]></filter>
+                    <dependencies>
+                        <attribute id="org_id"/>
+                    </dependencies>
+                    <is_null_allowed>true</is_null_allowed>
+                    <allow_target_creation>true</allow_target_creation>
+                    <on_target_delete>DEL_AUTO</on_target_delete>
+                </field>
+                <field id="physicaldevice_id" xsi:type="AttributeExternalKey">
+                    <sql>physicaldevice_id</sql>
+                    <target_class>PhysicalDevice</target_class>
+                    <filter>SELECT PhysicalDevice AS pd WHERE pd.finalclass IN ('MobilePhone', 'PC', 'Tablet') AND pd.org_id = :this->org_id</filter>
+                    <dependencies>
+                        <attribute id="org_id"/>
+                    </dependencies>
+                    <is_null_allowed>true</is_null_allowed>
+                    <allow_target_creation>true</allow_target_creation>
+                    <on_target_delete>DEL_AUTO</on_target_delete>
+                </field>
+                <field id="physicaldevice_name" xsi:type="AttributeExternalField">
+                    <extkey_attcode>physicaldevice_id</extkey_attcode>
+                    <target_attcode>name</target_attcode>
+                </field>
+                <field id="physicalinterface_id" xsi:type="AttributeExternalKey">
+                    <sql>physicalinterface_id</sql>
+                    <target_class>PhysicalInterface</target_class>
+                    <filter>SELECT PhysicalInterface AS pi WHERE pi.connectableci_id = :this->physicaldevice_id</filter>
+                    <dependencies>
+                        <attribute id="physicaldevice_id"/>
+                    </dependencies>
+                    <is_null_allowed>true</is_null_allowed>
+                    <allow_target_creation>true</allow_target_creation>
+                    <on_target_delete>DEL_AUTO</on_target_delete>
+                </field>
+                <field id="physicalinterface_name" xsi:type="AttributeExternalField">
+                    <extkey_attcode>physicalinterface_id</extkey_attcode>
+                    <target_attcode>name</target_attcode>
+                </field>
+            </fields>
+            <methods/>
+            <relations>
+                <relation id="impacts">
+                    <neighbours>
+                        <neighbour id="physicalinterface">
+                            <attribute>physicalinterface_id</attribute>
+                        </neighbour>
+                    </neighbours>
+                </relation>
+            </relations>
+            <presentation>
+                <details>
+                    <items>
+                        <item id="col:col1">
+                            <rank>10</rank>
+                            <items>
+                                <item id="fieldset:SimCard:baseinfo">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="name">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="org_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="status">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="business_criticity">
+                                            <rank>40</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:SimCard:techinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="iccid">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="format">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="pin">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="pin2">
+                                            <rank>40</rank>
+                                        </item>
+                                        <item id="puk">
+                                            <rank>50</rank>
+                                        </item>
+                                        <item id="puk2">
+                                            <rank>60</rank>
+                                        </item>
+                                        <item id="asset_number">
+                                            <rank>70</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="col:col2">
+                            <rank>20</rank>
+                            <items>
+                                <item id="fieldset:SimCard:date">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="move2production">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="purchase_date">
+                                            <rank>20</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:SimCard:otherinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="description">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="carrier_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="phonenumber_id">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="contact_id">
+                                            <rank>40</rank>
+                                        </item>
+                                        <item id="physicaldevice_id">
+                                            <rank>50</rank>
+                                        </item>
+                                        <item id="physicalinterface_id">
+                                            <rank>60</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="contacts_list">
+                            <rank>30</rank>
+                        </item>
+                        <item id="documents_list">
+                            <rank>30</rank>
+                        </item>
+                    </items>
+                </details>
+                <default_search>
+                    <items>
+                        <item id="name">
+                            <rank>10</rank>
+                        </item>
+                        <item id="org_id">
+                            <rank>20</rank>
+                        </item>
+                        <item id="status">
+                            <rank>30</rank>
+                        </item>
+                        <item id="iccid">
+                            <rank>40</rank>
+                        </item>
+                        <item id="phonenumber_id">
+                            <rank>50</rank>
+                        </item>
+                        <item id="contact_id">
+                            <rank>60</rank>
+                        </item>
+                    </items>
+                </default_search>
+                <search>
+                    <items>
+                        <item id="name">
+                            <rank>10</rank>
+                        </item>
+                        <item id="org_id">
+                            <rank>20</rank>
+                        </item>
+                        <item id="status">
+                            <rank>30</rank>
+                        </item>
+                        <item id="iccid">
+                            <rank>40</rank>
+                        </item>
+                        <item id="phonenumber_id">
+                            <rank>50</rank>
+                        </item>
+                        <item id="contact_id">
+                            <rank>60</rank>
+                        </item>
+                    </items>
+                </search>
+                <list>
+                    <items>
+                        <item id="org_id">
+                            <rank>10</rank>
+                        </item>
+                        <item id="status">
+                            <rank>20</rank>
+                        </item>
+                        <item id="iccid">
+                            <rank>30</rank>
+                        </item>
+                        <item id="phonenumber_id">
+                            <rank>40</rank>
+                        </item>
+                        <item id="contact_id">
+                            <rank>50</rank>
+                        </item>
+                    </items>
+                </list>
+                <summary>
+                    <items>
+                        <item id="name">
+                            <rank>10</rank>
+                        </item>
+                        <item id="iccid">
+                            <rank>20</rank>
+                        </item>
+                        <item id="phonenumber_id">
+                            <rank>30</rank>
+                        </item>
+                        <item id="contact_id">
+                            <rank>40</rank>
+                        </item>
+                        <item id="physicaldevice_id">
+                            <rank>50</rank>
+                        </item>
+                    </items>
+                </summary>
+            </presentation>
+        </class>
+        <class id="TelephonyCI" _delta="must_exist">
+            <fields>
+                <field id="phonenumber_id" xsi:type="AttributeExternalKey" _delta="define">
+                    <sql>phonenumber_id</sql>
+                    <target_class>PhoneNumber</target_class>
+                    <filter><![CDATA[SELECT PhoneNumber AS p WHERE p.org_id = :this->org_id]]></filter>
+                    <dependencies>
+                        <attribute id="org_id"/>
+                    </dependencies>
+                    <is_null_allowed>false</is_null_allowed>
+                    <on_target_delete>DEL_MANUAL</on_target_delete>
+                    <jointype/>
+                </field>
+                <field id="phonenumber" xsi:type="AttributeExternalField" _delta="redefine">
+                    <extkey_attcode>phonenumber_id</extkey_attcode>
+                    <target_attcode>number</target_attcode>
+                </field>
+            </fields>
+            <presentation>
+                <details>
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>80</rank>
+                        </item>
+                    </items>
+                </details>
+                <search>
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>80</rank>
+                        </item>
+                    </items>
+                </search>
+                <list>
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>60</rank>
+                        </item>
+                    </items>
+                </list>
+            </presentation>
+        </class>
+        <class id="Phone" _delta="must_exist" >
+            <presentation>
+                <details _delta="redefine">
+                    <items>
+                        <item id="col:col1">
+                            <rank>10</rank>
+                            <items>
+                                <item id="fieldset:TelephonyCI:baseinfo">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="name">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="org_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="status">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="phonenumber_id">
+                                            <rank>40</rank>
+                                        </item>
+                                        <item id="business_criticity">
+                                            <rank>50</rank>
+                                        </item>
+                                        <item id="location_id">
+                                            <rank>60</rank>
+                                        </item>
+                                        <item id="description">
+                                            <rank>70</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:TelephonyCI:hwinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="brand_id">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="model_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="serialnumber">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="asset_number">
+                                            <rank>40</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="col:col2">
+                            <rank>20</rank>
+                            <items>
+                                <item id="fieldset:TelephonyCI:date">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="move2production">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="purchase_date">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="end_of_warranty">
+                                            <rank>30</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="contacts_list">
+                            <rank>30</rank>
+                        </item>
+                        <item id="documents_list">
+                            <rank>30</rank>
+                        </item>
+                    </items>
+                </details>
+                <search _delta="must_exist">
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>80</rank>
+                        </item>
+                    </items>
+                </search>
+                <list _delta="must_exist">
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>60</rank>
+                        </item>
+                    </items>
+                </list>
+                <summary _delta="must_exist">
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>80</rank>
+                        </item>
+                    </items>
+                </summary>
+            </presentation>
+        </class>
+        <class id="MobilePhone" _delta="must_exist">
+            <fields>
+                <field id="simcard_format" xsi:type="AttributeEnum" _delta="define">
+                    <sql>simcard_format</sql>
+                    <sort_type>rank</sort_type>
+                    <values>
+                        <value id="regular">
+                            <code>regular</code>
+                            <rank>10</rank>
+                        </value>
+                        <value id="mini">
+                            <code>mini</code>
+                            <rank>20</rank>
+                        </value>
+                        <value id="micro">
+                            <code>micro</code>
+                            <rank>30</rank>
+                        </value>
+                        <value id="nano">
+                            <code>nano</code>
+                            <rank>40</rank>
+                        </value>
+                        <value id="esim">
+                            <code>esim</code>
+                            <rank>50</rank>
+                        </value>
+                    </values>
+                    <is_null_allowed>true</is_null_allowed>
+                    <default_value/>
+                    <display_style>list</display_style>
+                </field>
+                <field id="simcard1_id" xsi:type="AttributeExternalKey" _delta="define">
+                    <sql>simcard1_id</sql>
+                    <target_class>SimCard</target_class>
+                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id]]></filter>
+                    <dependencies>
+                        <attribute id="org_id"/>
+                    </dependencies>
+                    <is_null_allowed>true</is_null_allowed>
+                    <allow_target_creation>true</allow_target_creation>
+                    <on_target_delete>DEL_AUTO</on_target_delete>
+                </field>
+                <field id="simcard1_name" xsi:type="AttributeExternalField" _delta="define">
+                    <extkey_attcode>simcard1_id</extkey_attcode>
+                    <target_attcode>name</target_attcode>
+                </field>
+                <field id="simcard2_id" xsi:type="AttributeExternalKey" _delta="define">
+                    <sql>simcard2_id</sql>
+                    <is_null_allowed>true</is_null_allowed>
+                    <allow_target_creation>true</allow_target_creation>
+                    <on_target_delete>DEL_AUTO</on_target_delete>
+                    <target_class>SimCard</target_class>
+                </field>
+                <field id="simcard2_name" xsi:type="AttributeExternalField" _delta="define">
+                    <extkey_attcode>simcard2_id</extkey_attcode>
+                    <target_attcode>name</target_attcode>
+                </field>
+            </fields>
+            <presentation>
+                <details _delta="redefine">
+                    <items>
+                        <item id="col:col1">
+                            <rank>10</rank>
+                            <items>
+                                <item id="fieldset:TelephonyCI:baseinfo">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="name">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="org_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="status">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="phonenumber_id">
+                                            <rank>40</rank>
+                                        </item>
+                                        <item id="business_criticity">
+                                            <rank>50</rank>
+                                        </item>
+                                        <item id="location_id">
+                                            <rank>60</rank>
+                                        </item>
+                                        <item id="description">
+                                            <rank>70</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:TelephonyCI:hwinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="brand_id">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="model_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="serialnumber">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="asset_number">
+                                            <rank>40</rank>
+                                        </item>
+                                        <item id="macaddress">
+                                            <rank>50</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="col:col2">
+                            <rank>20</rank>
+                            <items>
+                                <item id="fieldset:TelephonyCI:date">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="move2production">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="purchase_date">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="end_of_warranty">
+                                            <rank>30</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:TelephonyCI:techinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="imei">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="hw_pin">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="simcard_format">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="simcard1_id">
+                                            <rank>40</rank>
+                                        </item>
+                                        <item id="simcard2_id">
+                                            <rank>50</rank>
+                                        </item>
+                                        <item id="ipaddress_id">
+                                            <rank>60</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="contacts_list">
+                            <rank>30</rank>
+                        </item>
+                        <item id="documents_list">
+                            <rank>30</rank>
+                        </item>
+                    </items>
+                </details>
+                <search _delta="must_exist">
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>80</rank>
+                        </item>
+                    </items>
+                </search>
+                <list _delta="must_exist">
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>60</rank>
+                        </item>
+                    </items>
+                </list>
+                <summary _delta="must_exist">
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>80</rank>
+                        </item>
+                    </items>
+                </summary>
+            </presentation>
+        </class>
+        <class id="IPPhone" _delta="must_exist">
+            <presentation>
+                <details _delta="redefine">
+                    <items>
+                        <item id="col:col1">
+                            <rank>10</rank>
+                            <items>
+                                <item id="fieldset:TelephonyCI:baseinfo">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="name">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="org_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="status">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="phonenumber_id">
+                                            <rank>40</rank>
+                                        </item>
+                                        <item id="business_criticity">
+                                            <rank>50</rank>
+                                        </item>
+                                        <item id="location_id">
+                                            <rank>60</rank>
+                                        </item>
+                                        <item id="description">
+                                            <rank>70</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:TelephonyCI:hwinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="brand_id">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="model_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="serialnumber">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="asset_number">
+                                            <rank>40</rank>
+                                        </item>
+                                        <item id="macaddress">
+                                            <rank>50</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="col:col2">
+                            <rank>20</rank>
+                            <items>
+                                <item id="fieldset:TelephonyCI:date">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="move2production">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="purchase_date">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="end_of_warranty">
+                                            <rank>30</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:TelephonyCI:techinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="ipaddress_id">
+                                            <rank>10</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="contacts_list">
+                            <rank>30</rank>
+                        </item>
+                        <item id="documents_list">
+                            <rank>30</rank>
+                        </item>
+                    </items>
+                </details>
+                <search _delta="must_exist">
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>80</rank>
+                        </item>
+                    </items>
+                </search>
+                <list _delta="must_exist">
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>60</rank>
+                        </item>
+                    </items>
+                </list>
+                <summary _delta="must_exist">
+                    <items>
+                        <item id="phonenumber" _delta="delete"/>
+                        <item id="phonenumber_id" _delta="define">
+                            <rank>80</rank>
+                        </item>
+                    </items>
+                </summary>
+            </presentation>
+        </class>
+        <class id="Tablet" _delta="must_exist">
+            <fields>
+                <field id="simcard_format" xsi:type="AttributeEnum" _delta="define">
+                    <sql>simcard_format</sql>
+                    <sort_type>rank</sort_type>
+                    <values>
+                        <value id="regular">
+                            <code>regular</code>
+                            <rank>10</rank>
+                        </value>
+                        <value id="mini">
+                            <code>mini</code>
+                            <rank>20</rank>
+                        </value>
+                        <value id="micro">
+                            <code>micro</code>
+                            <rank>30</rank>
+                        </value>
+                        <value id="nano">
+                            <code>nano</code>
+                            <rank>40</rank>
+                        </value>
+                        <value id="esim">
+                            <code>esim</code>
+                            <rank>50</rank>
+                        </value>
+                    </values>
+                    <is_null_allowed>true</is_null_allowed>
+                    <default_value/>
+                    <display_style>list</display_style>
+                </field>
+                <field id="simcard_id" xsi:type="AttributeExternalKey" _delta="define">
+                    <sql>simcard_id</sql>
+                    <target_class>SimCard</target_class>
+                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id]]></filter>
+                    <dependencies>
+                        <attribute id="org_id"/>
+                    </dependencies>
+                    <is_null_allowed>true</is_null_allowed>
+                    <allow_target_creation>true</allow_target_creation>
+                    <on_target_delete>DEL_AUTO</on_target_delete>
+                </field>
+                <field id="simcard_name" xsi:type="AttributeExternalField" _delta="define">
+                    <extkey_attcode>simcard_id</extkey_attcode>
+                    <target_attcode>name</target_attcode>
+                </field>
+            </fields>
+            <presentation>
+                <details _delta="redefine">
+                    <items>
+                        <item id="col:col1">
+                            <rank>10</rank>
+                            <items>
+                                <item id="fieldset:Tablet:baseinfo">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="name">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="org_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="status">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="business_criticity">
+                                            <rank>50</rank>
+                                        </item>
+                                        <item id="location_id">
+                                            <rank>60</rank>
+                                        </item>
+                                        <item id="description">
+                                            <rank>70</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:Tablet:hwinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="brand_id">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="model_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="serialnumber">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="asset_number">
+                                            <rank>40</rank>
+                                        </item>
+                                        <item id="macaddress">
+                                            <rank>50</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="col:col2">
+                            <rank>20</rank>
+                            <items>
+                                <item id="fieldset:Tablet:date">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="move2production">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="purchase_date">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="end_of_warranty">
+                                            <rank>30</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:Tablet:techinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="simcard_format">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="simcard_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="ipaddress_id">
+                                            <rank>30</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="contacts_list">
+                            <rank>30</rank>
+                        </item>
+                        <item id="documents_list">
+                            <rank>30</rank>
+                        </item>
+                    </items>
+                </details>
+            </presentation>
+        </class>
+        <class id="PC" _delta="must_exist">
+            <fields>
+                <field id="simcard_format" xsi:type="AttributeEnum" _delta="define">
+                    <sql>simcard_format</sql>
+                    <sort_type>rank</sort_type>
+                    <values>
+                        <value id="regular">
+                            <code>regular</code>
+                            <rank>10</rank>
+                        </value>
+                        <value id="mini">
+                            <code>mini</code>
+                            <rank>20</rank>
+                        </value>
+                        <value id="micro">
+                            <code>micro</code>
+                            <rank>30</rank>
+                        </value>
+                        <value id="nano">
+                            <code>nano</code>
+                            <rank>40</rank>
+                        </value>
+                        <value id="esim">
+                            <code>esim</code>
+                            <rank>50</rank>
+                        </value>
+                    </values>
+                    <is_null_allowed>true</is_null_allowed>
+                    <default_value/>
+                    <display_style>list</display_style>
+                </field>
+                <field id="simcard_id" xsi:type="AttributeExternalKey" _delta="define">
+                    <sql>simcard_id</sql>
+                    <target_class>SimCard</target_class>
+                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id]]></filter>
+                    <dependencies>
+                        <attribute id="org_id"/>
+                    </dependencies>
+                    <is_null_allowed>true</is_null_allowed>
+                    <allow_target_creation>true</allow_target_creation>
+                    <on_target_delete>DEL_AUTO</on_target_delete>
+                </field>
+                <field id="simcard_name" xsi:type="AttributeExternalField" _delta="define">
+                    <extkey_attcode>simcard_id</extkey_attcode>
+                    <target_attcode>name</target_attcode>
+                </field>
+            </fields>
+            <presentation>
+                <details _delta="must_exist">
+                    <items>
+                        <item id="col:col2" _delta="must_exist">
+                            <items>
+                                <item id="fieldset:Server:otherinfo" _delta="must_exist">
+                                    <items>
+                                        <item id="simcard_format" _delta="define">
+                                            <rank>5</rank>
+                                        </item>
+                                        <item id="simcard_id" _delta="define">
+                                            <rank>6</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                    </items>
+                </details>
+            </presentation>
+        </class>
+    </classes>
+    <menus>
+        <menu id="ConfigManagementOverview" _delta="must_exist">
+            <definition>
+                <cells>
+                    <cell id="2" _delta="must_exist">
+                        <dashlets>
+                            <dashlet id="teemip_101" xsi:type="DashletBadge" _delta="define">
+                                <rank>101</rank>
+                                <class>SimCard</class>
+                            </dashlet>
+                        </dashlets>
+                    </cell>
+                </cells>
+            </definition>
+        </menu>
+        <menu id="TelephonySpace" _delta="must_exist">
+            <definition>
+                <cells>
+                    <cell id="teemip-200" _delta="define">
+                        <rank>20</rank>
+                        <dashlets>
+                            <dashlet id="teemip-210" xsi:type="DashletHeaderStatic">
+                                <rank>10</rank>
+                                <title>Menu:TelefonySpace:Devices</title>
+                                <icon>teemip-phone-number-mgmt/asset/img/icons8-internet-folder-48.png</icon>
+                            </dashlet>
+                            <dashlet id="teemip-220" xsi:type="DashletBadge">
+                                <rank>20</rank>
+                                <class>Phone</class>
+                            </dashlet>
+                            <dashlet id="teemip-230" xsi:type="DashletBadge">
+                                <rank>30</rank>
+                                <class>IPPhone</class>
+                            </dashlet>
+                            <dashlet id="teemip-240" xsi:type="DashletBadge">
+                                <rank>40</rank>
+                                <class>MobilePhone</class>
+                            </dashlet>
+                            <dashlet id="teemip-250" xsi:type="DashletBadge">
+                                <rank>50</rank>
+                                <class>SimCard</class>
+                            </dashlet>
+                        </dashlets>
+                    </cell>
+                </cells>
+            </definition>
+        </menu>
+    </menus>
+</itop_design>
