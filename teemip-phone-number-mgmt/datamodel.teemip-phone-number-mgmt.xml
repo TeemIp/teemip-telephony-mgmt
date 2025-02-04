@@ -1085,37 +1085,37 @@
         </class>
     </classes>
     <menus>
-        <menu id="PNManagement" xsi:type="MenuGroup" _delta="define">
+        <menu id="TelephonyManagement" xsi:type="MenuGroup" _delta="define">
             <rank>32</rank>
             <style>
                 <decoration_classes>fa fa-phone</decoration_classes>
             </style>
         </menu>
-        <menu id="PNSpace" xsi:type="DashboardMenuNode" _delta="define">
+        <menu id="TelephonySpace" xsi:type="DashboardMenuNode" _delta="define">
             <rank>10</rank>
-            <parent>PNManagement</parent>
+            <parent>TelephonyManagement</parent>
             <definition>
                 <layout>DashboardLayoutOneCol</layout>
                 <title/>
                 <cells>
                     <cell id="teemip-100">
-                        <rank>1</rank>
+                        <rank>10</rank>
                         <dashlets>
-                            <dashlet id="teemip-101" xsi:type="DashletHeaderStatic">
-                                <rank>1</rank>
-                                <title>Menu:PNSpace:PNObjects</title>
+                            <dashlet id="teemip-110" xsi:type="DashletHeaderStatic">
+                                <rank>10</rank>
+                                <title>Menu:TelephonySpace:PNObjects</title>
                                 <icon>teemip-phone-number-mgmt/asset/img/icons8-internet-folder-48.png</icon>
                             </dashlet>
-                            <dashlet id="teemip-111" xsi:type="DashletBadge">
-                                <rank>2</rank>
+                            <dashlet id="teemip-120" xsi:type="DashletBadge">
+                                <rank>20</rank>
                                 <class>PNRange</class>
                             </dashlet>
-                            <dashlet id="teemip-112" xsi:type="DashletBadge">
-                                <rank>3</rank>
+                            <dashlet id="teemip-130" xsi:type="DashletBadge">
+                                <rank>30</rank>
                                 <class>PhoneNumber</class>
                             </dashlet>
-                            <dashlet id="teemip-113" xsi:type="DashletBadge">
-                                <rank>4</rank>
+                            <dashlet id="teemip-140" xsi:type="DashletBadge">
+                                <rank>40</rank>
                                 <class>PNExtension</class>
                             </dashlet>
                         </dashlets>
@@ -1125,31 +1125,31 @@
         </menu>
         <menu id="NewPNObject" xsi:type="NewObjectMenuNode" _delta="define">
             <rank>20</rank>
-            <parent>PNManagement</parent>
+            <parent>TelephonyManagement</parent>
             <class>PNObject</class>
         </menu>
         <menu id="SearchPNObject" xsi:type="SearchMenuNode" _delta="define">
             <rank>30</rank>
-            <parent>PNManagement</parent>
+            <parent>TelephonyManagement</parent>
             <class>PNObject</class>
         </menu>
         <menu id="PNRange" xsi:type="OQLMenuNode" _delta="define">
             <rank>40</rank>
-            <parent>PNManagement</parent>
+            <parent>TelephonyManagement</parent>
             <oql>SELECT PNRange</oql>
             <do_search>1</do_search>
             <auto_reload>fast</auto_reload>
         </menu>
         <menu id="PhoneNumber" xsi:type="OQLMenuNode" _delta="define">
             <rank>50</rank>
-            <parent>PNManagement</parent>
+            <parent>TelephonyManagement</parent>
             <oql>SELECT PhoneNumber</oql>
             <do_search>1</do_search>
             <auto_reload>fast</auto_reload>
         </menu>
         <menu id="PNExtension" xsi:type="OQLMenuNode" _delta="define">
             <rank>60</rank>
-            <parent>PNManagement</parent>
+            <parent>TelephonyManagement</parent>
             <oql>SELECT PNExtension</oql>
             <do_search>1</do_search>
             <auto_reload>fast</auto_reload>

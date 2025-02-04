@@ -169,13 +169,13 @@ Dict::Add('EN US', 'English', 'English', array(
 //
 
 Dict::Add('EN US', 'English', 'English', array(
-    'Menu:PNManagement' => 'Phone Number Management',
-    'Menu:PNManagement+' => '',
-    'Menu:PNSpace' => 'Phone Number Space',
-    'Menu:PNSpace+' => '',
-    'Menu:NewPNObject' => 'New Phone Numbers object',
+    'Menu:TelephonyManagement' => 'Telephony Management',
+    'Menu:TelephonyManagement+' => '',
+    'Menu:TelephonySpace' => 'Telephony Space',
+    'Menu:TelephonySpace+' => '',
+    'Menu:NewPNObject' => 'New Phone Number',
     'Menu:NewPNObject+' => 'Creation of a new phone number object',
-    'Menu:SearchPNObject' => 'Search for Phone Number objects',
+    'Menu:SearchPNObject' => 'Search for Phone Numbers',
     'Menu:SearchPNObject+' => '',
     'Menu:PNRange' => 'Phone Number Ranges',
     'Menu:PNRange+' => '',
@@ -183,7 +183,7 @@ Dict::Add('EN US', 'English', 'English', array(
     'Menu:PhoneNumber+' => '',
     'Menu:PNExtension' => 'Extensions',
     'Menu:PNExtension+' => '',
-    'Menu:PNSpace:PNObjects' => 'Phone Number Objects',
+    'Menu:TelephonySpace:PNObjects' => 'Phone Numbers',
 
 //
 // Management of PNRanges
