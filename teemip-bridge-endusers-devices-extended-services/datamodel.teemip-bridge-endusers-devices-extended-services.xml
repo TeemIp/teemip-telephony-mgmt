@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.2" load="strict">
+  <classes>
+    <class id="Phone" _delta="must_exist">
+      <presentation>
+        <details _delta="must_exist">
+          <items>
+            <item id="providercontracts_list" _delta="define_if_not_exists">
+              <rank>50</rank>
+            </item>
+            <item id="services_list" _delta="define_if_not_exists">
+              <rank>60</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+    </class>
+    <class id="MobilePhone" _delta="must_exist">
+      <presentation>
+        <details _delta="must_exist">
+          <items>
+            <item id="providercontracts_list" _delta="define_if_not_exists">
+              <rank>50</rank>
+            </item>
+            <item id="services_list" _delta="define_if_not_exists">
+              <rank>60</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+    </class>
+    <class id="IPPhone" _delta="must_exist">
+      <presentation>
+        <details _delta="must_exist">
+          <items>
+            <item id="providercontracts_list" _delta="define_if_not_exists">
+              <rank>50</rank>
+            </item>
+            <item id="services_list" _delta="define_if_not_exists">
+              <rank>60</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+    </class>
+    <class id="Tablet" _delta="must_exist">
+      <presentation>
+        <details _delta="must_exist">
+          <items>
+            <item id="providercontracts_list" _delta="define_if_not_exists">
+              <rank>50</rank>
+            </item>
+            <item id="services_list" _delta="define_if_not_exists">
+              <rank>60</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+    </class>
+  </classes>
+  <menus/>
+  <user_rights/>
+</itop_design>
