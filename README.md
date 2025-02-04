@@ -1,15 +1,17 @@
-# TeemIp Phone Number Management
-TeemIp extension that brings phone number plan management features.
+# TeemIp Telephony Management
+TeemIp extension that provides phone numbers management and enhances telephony devices.
 
 ## Description
 
-The TeemIp Phone Number Management extension allows phone number plan administrators to document and manage the extensions, the phone numbers and the phone number ranges of their organization.
+The TeemIp Telephony Management extension allows administators to manage and document 
+the phone number plans, phone numbers and phone extensions of their organization. It enhances 
+the end-user devices of the CMDB and bring additional classes to it.
 
 ## Documentation
 
 Comprehensive documentation can be found on TeemIp’s [wiki][1], namely in the chapter dedicated to the extension:
 
-[Phone Number Management][2]
+[Telephony Management][2]
 
 [1]: https://wiki.teemip.net
-[2]: https://wiki.teemip.net/doku.php?id=extensions:teemip-phone-number-mgmt
+[2]: https://wiki.teemip.net/doku.php?id=extensions:teemip-telephony-mgmt
