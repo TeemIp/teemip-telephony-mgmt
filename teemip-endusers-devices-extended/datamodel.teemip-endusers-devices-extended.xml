@@ -37,8 +37,8 @@
                     <sql>format</sql>
                     <sort_type>rank</sort_type>
                     <values>
-                        <value id="regular">
-                            <code>regular</code>
+                        <value id="full">
+                            <code>full</code>
                             <rank>10</rank>
                         </value>
                         <value id="mini">
@@ -57,12 +57,12 @@
                             <code>esim</code>
                             <rank>50</rank>
                         </value>
-                        <value id="regular_to_micro">
-                            <code>regular_to_micro</code>
+                        <value id="full_to_micro">
+                            <code>full_to_micro</code>
                             <rank>60</rank>
                         </value>
-                        <value id="regular_to_nano">
-                            <code>regular_to_nano</code>
+                        <value id="full_to_nano">
+                            <code>full_to_nano</code>
                             <rank>70</rank>
                         </value>
                         <value id="micro_to_nano">
@@ -515,8 +515,8 @@
                     <sql>simcard_format</sql>
                     <sort_type>rank</sort_type>
                     <values>
-                        <value id="regular">
-                            <code>regular</code>
+                        <value id="full">
+                            <code>full</code>
                             <rank>10</rank>
                         </value>
                         <value id="mini">
@@ -543,9 +543,18 @@
                 <field id="simcard1_id" xsi:type="AttributeExternalKey" _delta="define">
                     <sql>simcard1_id</sql>
                     <target_class>SimCard</target_class>
-                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id]]></filter>
+                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id AND
+                               (IF (:this->simcard_format = 'full', c.format IN ('full', 'full_to_micro', 'full_to_nano'),
+                                    (IF (:this->simcard_format = 'micro', c.format IN ('micro', 'full_to_micro'),
+                                         (IF (:this->simcard_format = 'nano', c.format IN ('nano', 'full_to_nano', 'micro_to_nano'),
+                                              c.format = :this->simcard_format
+                                         ))
+                                    ))
+                               ))]]>
+                    </filter>
                     <dependencies>
                         <attribute id="org_id"/>
+                        <attribute id="simcard_format"/>
                     </dependencies>
                     <is_null_allowed>true</is_null_allowed>
                     <allow_target_creation>true</allow_target_creation>
@@ -557,10 +566,23 @@
                 </field>
                 <field id="simcard2_id" xsi:type="AttributeExternalKey" _delta="define">
                     <sql>simcard2_id</sql>
+                    <target_class>SimCard</target_class>
+                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id AND c.id != :this->simcard1_id AND
+                               (IF (:this->simcard_format = 'full', c.format IN ('full', 'full_to_micro', 'full_to_nano'),
+                                    (IF (:this->simcard_format = 'micro', c.format IN ('micro', 'full_to_micro'),
+                                         (IF (:this->simcard_format = 'nano', c.format IN ('nano', 'full_to_nano', 'micro_to_nano'),
+                                              c.format = :this->simcard_format
+                                         ))
+                                    ))
+                               ))]]>
+                    </filter>
+                    <dependencies>
+                        <attribute id="org_id"/>
+                        <attribute id="simcard_format"/>
+                    </dependencies>
                     <is_null_allowed>true</is_null_allowed>
                     <allow_target_creation>true</allow_target_creation>
                     <on_target_delete>DEL_AUTO</on_target_delete>
-                    <target_class>SimCard</target_class>
                 </field>
                 <field id="simcard2_name" xsi:type="AttributeExternalField" _delta="define">
                     <extkey_attcode>simcard2_id</extkey_attcode>
@@ -819,8 +841,8 @@
                     <sql>simcard_format</sql>
                     <sort_type>rank</sort_type>
                     <values>
-                        <value id="regular">
-                            <code>regular</code>
+                        <value id="full">
+                            <code>full</code>
                             <rank>10</rank>
                         </value>
                         <value id="mini">
@@ -847,9 +869,18 @@
                 <field id="simcard_id" xsi:type="AttributeExternalKey" _delta="define">
                     <sql>simcard_id</sql>
                     <target_class>SimCard</target_class>
-                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id]]></filter>
+                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id AND
+                               (IF (:this->simcard_format = 'full', c.format IN ('full', 'full_to_micro', 'full_to_nano'),
+                                    (IF (:this->simcard_format = 'micro', c.format IN ('micro', 'full_to_micro'),
+                                         (IF (:this->simcard_format = 'nano', c.format IN ('nano', 'full_to_nano', 'micro_to_nano'),
+                                              c.format = :this->simcard_format
+                                         ))
+                                    ))
+                               ))]]>
+                    </filter>
                     <dependencies>
                         <attribute id="org_id"/>
+                        <attribute id="simcard_format"/>
                     </dependencies>
                     <is_null_allowed>true</is_null_allowed>
                     <allow_target_creation>true</allow_target_creation>
@@ -960,8 +991,8 @@
                     <sql>simcard_format</sql>
                     <sort_type>rank</sort_type>
                     <values>
-                        <value id="regular">
-                            <code>regular</code>
+                        <value id="full">
+                            <code>full</code>
                             <rank>10</rank>
                         </value>
                         <value id="mini">
@@ -988,9 +1019,18 @@
                 <field id="simcard_id" xsi:type="AttributeExternalKey" _delta="define">
                     <sql>simcard_id</sql>
                     <target_class>SimCard</target_class>
-                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id]]></filter>
+                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id AND
+                               (IF (:this->simcard_format = 'full', c.format IN ('full', 'full_to_micro', 'full_to_nano'),
+                                    (IF (:this->simcard_format = 'micro', c.format IN ('micro', 'full_to_micro'),
+                                         (IF (:this->simcard_format = 'nano', c.format IN ('nano', 'full_to_nano', 'micro_to_nano'),
+                                              c.format = :this->simcard_format
+                                         ))
+                                    ))
+                               ))]]>
+                    </filter>
                     <dependencies>
                         <attribute id="org_id"/>
+                        <attribute id="simcard_format"/>
                     </dependencies>
                     <is_null_allowed>true</is_null_allowed>
                     <allow_target_creation>true</allow_target_creation>
