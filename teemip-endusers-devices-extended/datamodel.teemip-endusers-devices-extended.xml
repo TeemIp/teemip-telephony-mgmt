@@ -170,7 +170,153 @@
                     <target_attcode>name</target_attcode>
                 </field>
             </fields>
-            <methods/>
+            <event_listeners>
+                <event_listener id="OnSimCardCheckToWriteRequestedByEndUsersDevicesExtendedMgmt">
+                    <event>EVENT_DB_CHECK_TO_WRITE</event>
+                    <callback>OnSimCardCheckToWriteRequestedByEndUsersDevicesExtendedMgmt</callback>
+                    <rank>100</rank>
+                </event_listener>
+                <event_listener id="OnSimCardAfterWriteRequestedByEndUsersDevicesExtendedMgmt">
+                    <event>EVENT_DB_AFTER_WRITE</event>
+                    <callback>OnSimCardAfterWriteRequestedByEndUsersDevicesExtendedMgmt</callback>
+                    <rank>100</rank>
+                </event_listener>
+                <event_listener id="OnSimCardAfterDeleteRequestedByEndUsersDevicesExtendedMgmt">
+                    <event>EVENT_DB_AFTER_DELETE</event>
+                    <callback>OnSimCardAfterDeleteRequestedByEndUsersDevicesExtendedMgmt</callback>
+                    <rank>100</rank>
+                </event_listener>
+            </event_listeners>
+            <methods>
+                <method id="SetSimCardOnPhysicalDevice">
+                    <comment/>
+                    <static>false</static>
+                    <access>private</access>
+                    <type>custom</type>
+                    <code><![CDATA[    public function SetSimCardOnPhysicalDevice($iPhysicalDeviceId)
+    {
+			if (($iPhysicalDeviceId > 0) && in_array('simcard_id', MetaModel::GetAttributesList('PhysicalDevice'))) {
+			    $sDevicesWithSimCard = "'".str_replace(',', "','", DEVICES_WITH_SIMCARD)."'";
+				$sOQL = "SELECT PhysicalDevice AS d WHERE d.id = $iPhysicalDeviceId AND d.finalclass IN ($sDevicesWithSimCard)";
+       			$oPhysicalDeviceSet = new CMDBObjectSet(DBObjectSearch::FromOQL($sOQL));
+				if ($oPhysicalDevice = $oPhysicalDeviceSet->Fetch()) {
+					$oPhysicalDevice->Set('simcard_id', $this->GetKey());
+					$oPhysicalDevice->DBUpdate();
+				}
+			}
+    }]]></code>
+                </method>
+                <method id="ResetSimCardOnPhysicalDevice">
+                    <comment/>
+                    <static>false</static>
+                    <access>private</access>
+                    <type>custom</type>
+                    <code><![CDATA[    public function ResetSimCardOnPhysicalDevice($iPhysicalDeviceId)
+    {
+			if (($iPhysicalDeviceId > 0) && in_array('simcard_id', MetaModel::GetAttributesList('PhysicalDevice'))) {
+			    $sDevicesWithSimCard = "'".str_replace(',', "','", DEVICES_WITH_SIMCARD)."'";
+				$sOQL = "SELECT PhysicalDevice AS d WHERE d.id = $iPhysicalDeviceId AND d.finalclass IN ($sDevicesWithSimCard)";
+       			$oPhysicalDeviceSet = new CMDBObjectSet(DBObjectSearch::FromOQL($sOQL));
+				if ($oPhysicalDevice = $oPhysicalDeviceSet->Fetch()) {
+				    if ($oPhysicalDevice->Get('simcard_id') == $this->GetKey()) {
+					    $oPhysicalDevice->Set('simcard_id', 0);
+					    $oPhysicalDevice->DBUpdate();
+					}
+				}
+			}
+    }]]></code>
+                </method>
+                <method id="OnSimCardCheckToWriteRequestedByEndUsersDevicesExtendedMgmt">
+                    <comment/>
+                    <static>false</static>
+                    <access>public</access>
+                    <type>EventListener</type>
+                    <code><![CDATA[    public function OnSimCardCheckToWriteRequestedByEndUsersDevicesExtendedMgmt(Combodo\iTop\Service\Events\EventData $oEventData)
+    {
+        $iPhysicalDeviceId = $this->Get('physicaldevice_id');
+        if ($iPhysicalDeviceId > 0) {
+            $oPhysicalDevice = MetaModel::GetObject('PhysicalDevice', $iPhysicalDeviceId);
+            if ($oPhysicalDevice) {
+                // Check that the right class of physical device is selected, if any
+	            $aDevicesWithSimCard = explode(',', DEVICES_WITH_SIMCARD);
+                if (!in_array(get_class($oPhysicalDevice), $aDevicesWithSimCard)) {
+                    $this->AddCheckIssue('UI:EndusersDevicesExtended:Action:New:SimCard:WrongPhysicalDevice');
+                    return;
+                }
+
+                // Check that the format of the simcard is compatible with what the physical device can host.
+                if (in_array('simcard_format', MetaModel::GetAttributesList('PhysicalDevice'))) {
+                    $sTargetFormat = $oPhysicalDevice->Get('simcard_format');
+                    $sSimCardFormat = $this->Get('format');
+                    switch ($sSimCardFormat) {
+                        case 'full':
+                        case 'mini':
+                        case 'micro':
+                        case 'nano':
+                        case 'esim':
+                            if ($sTargetFormat != $sSimCardFormat) {
+                                $this->AddCheckIssue('UI:EndusersDevicesExtended:Action:New:SimCard:IncompatibleSIMs');
+                            }
+                            break;
+
+                        case 'full_to_micro':
+                            if (!in_array($sTargetFormat, ['full', 'micro'])) {
+                                $this->AddCheckIssue('UI:EndusersDevicesExtended:Action:New:SimCard:IncompatibleSIMs');
+                            }
+                            break;
+
+                        case 'full_to_nano':
+                            if (!in_array($sTargetFormat, ['full', 'nano'])) {
+                                $this->AddCheckIssue('UI:EndusersDevicesExtended:Action:New:SimCard:IncompatibleSIMs');
+                            }
+                            break;
+
+                        case 'micro_to_nano':
+                            if (!in_array($sTargetFormat, ['micro', 'nano'])) {
+                                $this->AddCheckIssue('UI:EndusersDevicesExtended:Action:New:SimCard:IncompatibleSIMs');
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }]]></code>
+                </method>
+                <method id="OnSimCardAfterWriteRequestedByEndUsersDevicesExtendedMgmt">
+                    <comment/>
+                    <static>false</static>
+                    <access>public</access>
+                    <type>EventListener</type>
+                    <code><![CDATA[    public function OnSimCardAfterWriteRequestedByEndUsersDevicesExtendedMgmt(Combodo\iTop\Service\Events\EventData $oEventData)
+    {
+        $aEventData = $oEventData->GetEventData();
+        if ($aEventData['is_new']) {
+        	// We are in the AfterInsert situation
+			$this->SetSimCardOnPhysicalDevice($this->Get('physicaldevice_id'));
+ 		} else {
+		    // We are in the AfterUpdate situation
+			$aChanges = $this->ListPreviousValuesForUpdatedAttributes();
+			if (array_key_exists('physicaldevice_id', $aChanges)) {
+				$this->ResetSimCardOnPhysicalDevice($aChanges['physicaldevice_id']);
+    			$this->SetSimCardOnPhysicalDevice($this->Get('physicaldevice_id'));
+			}
+        }
+    }]]></code>
+                </method>
+                <method id="OnSimCardAfterDeleteRequestedByEndUsersDevicesExtendedMgmt">
+                    <comment/>
+                    <static>false</static>
+                    <access>public</access>
+                    <type>EventListener</type>
+                    <code><![CDATA[    public function OnSimCardAfterDeleteRequestedByEndUsersDevicesExtendedMgmt(Combodo\iTop\Service\Events\EventData $oEventData)
+    {
+		$this->ResetSimCardOnPhysicalDevice($this->Get('physicaldevice_id'));
+    }]]></code>
+                </method>
+            </methods>
             <relations>
                 <relation id="impacts">
                     <neighbours>
