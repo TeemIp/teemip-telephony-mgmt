@@ -57,6 +57,20 @@
         </details>
       </presentation>
     </class>
+    <class id="Peripheral" _delta="must_exist">
+      <presentation>
+        <details _delta="must_exist">
+          <items>
+            <item id="providercontracts_list" _delta="define_if_not_exists">
+              <rank>50</rank>
+            </item>
+            <item id="services_list" _delta="define_if_not_exists">
+              <rank>60</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+    </class>
   </classes>
   <menus/>
   <user_rights/>

@@ -151,6 +151,56 @@ Dict::Add('EN US', 'English', 'English', array(
 ));
 
 //
+// Class: Peripheral
+//
+
+Dict::Add('EN US', 'English', 'English', array(
+    'Class:Peripheral/Attribute:simcard_format' => 'SIM Card Format',
+    'Class:Peripheral/Attribute:simcard_format+' => '',
+    'Class:Peripheral/Attribute:simcard_format/Value:full' => 'Full-size',
+    'Class:Peripheral/Attribute:simcard_format/Value:full+' => '1FF',
+    'Class:Peripheral/Attribute:simcard_format/Value:mini' => 'Mini-SIM',
+    'Class:Peripheral/Attribute:simcard_format/Value:mini+' => '2FF',
+    'Class:Peripheral/Attribute:simcard_format/Value:micro' => 'Micro-SIM',
+    'Class:Peripheral/Attribute:simcard_format/Value:micro+' => '3FF',
+    'Class:Peripheral/Attribute:simcard_format/Value:nano' => 'Nano-SIM',
+    'Class:Peripheral/Attribute:simcard_format/Value:nano+' => '4FF',
+    'Class:Peripheral/Attribute:simcard_format/Value:esim' => 'Embedded-SIM',
+    'Class:Peripheral/Attribute:simcard_format/Value:esim+' => 'eSIM',
+    'Class:Peripheral/Attribute:simcard_id' => 'SIM Card',
+    'Class:Peripheral/Attribute:simcard_id+' => 'SIM Card of the tablet',
+    'Class:Peripheral/Attribute:simcard_name' => 'Name of the SIM Card',
+    'Class:Peripheral/Attribute:simcard_name+' => '',
+    'Peripheral:baseinfo' => 'General Information',
+    'Peripheral:hwinfo' => 'Hardware Information',
+    'Peripheral:date' => 'Dates',
+    'Peripheral:techinfo' => 'Technical Information',
+));
+
+//
+// Class: NetworkDevice
+//
+
+Dict::Add('EN US', 'English', 'English', array(
+    'Class:NetworkDevice/Attribute:simcard_format' => 'SIM Card Format',
+    'Class:NetworkDevice/Attribute:simcard_format+' => '',
+    'Class:NetworkDevice/Attribute:simcard_format/Value:full' => 'Full-size',
+    'Class:NetworkDevice/Attribute:simcard_format/Value:full+' => '1FF',
+    'Class:NetworkDevice/Attribute:simcard_format/Value:mini' => 'Mini-SIM',
+    'Class:NetworkDevice/Attribute:simcard_format/Value:mini+' => '2FF',
+    'Class:NetworkDevice/Attribute:simcard_format/Value:micro' => 'Micro-SIM',
+    'Class:NetworkDevice/Attribute:simcard_format/Value:micro+' => '3FF',
+    'Class:NetworkDevice/Attribute:simcard_format/Value:nano' => 'Nano-SIM',
+    'Class:NetworkDevice/Attribute:simcard_format/Value:nano+' => '4FF',
+    'Class:NetworkDevice/Attribute:simcard_format/Value:esim' => 'Embedded-SIM',
+    'Class:NetworkDevice/Attribute:simcard_format/Value:esim+' => 'eSIM',
+    'Class:NetworkDevice/Attribute:simcard_id' => 'SIM Card',
+    'Class:NetworkDevice/Attribute:simcard_id+' => 'IM Card of the PC',
+    'Class:NetworkDevice/Attribute:simcard_name' => 'Name of the SIM Card',
+    'Class:NetworkDevice/Attribute:simcard_name+' => '',
+));
+
+//
 // Menus & actions
 //
 
