@@ -1211,6 +1211,353 @@
                 </details>
             </presentation>
         </class>
+        <class id="NetworkDevice" _delta="must_exist">
+            <fields>
+                <field id="simcard_format" xsi:type="AttributeEnum" _delta="define">
+                    <sql>simcard_format</sql>
+                    <sort_type>rank</sort_type>
+                    <values>
+                        <value id="full">
+                            <code>full</code>
+                            <rank>10</rank>
+                        </value>
+                        <value id="mini">
+                            <code>mini</code>
+                            <rank>20</rank>
+                        </value>
+                        <value id="micro">
+                            <code>micro</code>
+                            <rank>30</rank>
+                        </value>
+                        <value id="nano">
+                            <code>nano</code>
+                            <rank>40</rank>
+                        </value>
+                        <value id="esim">
+                            <code>esim</code>
+                            <rank>50</rank>
+                        </value>
+                    </values>
+                    <is_null_allowed>true</is_null_allowed>
+                    <default_value/>
+                    <display_style>list</display_style>
+                </field>
+                <field id="simcard_id" xsi:type="AttributeExternalKey" _delta="define">
+                    <sql>simcard_id</sql>
+                    <target_class>SimCard</target_class>
+                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id AND
+                               (IF (:this->simcard_format = 'full', c.format IN ('full', 'full_to_micro', 'full_to_nano'),
+                                    (IF (:this->simcard_format = 'micro', c.format IN ('micro', 'full_to_micro'),
+                                         (IF (:this->simcard_format = 'nano', c.format IN ('nano', 'full_to_nano', 'micro_to_nano'),
+                                              c.format = :this->simcard_format
+                                         ))
+                                    ))
+                               ))]]>
+                    </filter>
+                    <dependencies>
+                        <attribute id="org_id"/>
+                        <attribute id="simcard_format"/>
+                    </dependencies>
+                    <is_null_allowed>true</is_null_allowed>
+                    <allow_target_creation>true</allow_target_creation>
+                    <on_target_delete>DEL_AUTO</on_target_delete>
+                </field>
+                <field id="simcard_name" xsi:type="AttributeExternalField" _delta="define">
+                    <extkey_attcode>simcard_id</extkey_attcode>
+                    <target_attcode>name</target_attcode>
+                </field>
+            </fields>
+            <presentation>
+                <details _delta="must_exist">
+                    <items>
+                        <item id="col:col2" _delta="must_exist">
+                            <items>
+                                <item id="fieldset:Server:otherinfo" _delta="must_exist">
+                                    <items>
+                                        <item id="simcard_format" _delta="define">
+                                            <rank>5</rank>
+                                        </item>
+                                        <item id="simcard_id" _delta="define">
+                                            <rank>6</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                    </items>
+                </details>
+            </presentation>
+        </class>
+        <class id="Peripheral" _delta="must_exist">
+            <fields>
+                <field id="simcard_format" xsi:type="AttributeEnum" _delta="define">
+                    <sql>simcard_format</sql>
+                    <sort_type>rank</sort_type>
+                    <values>
+                        <value id="full">
+                            <code>full</code>
+                            <rank>10</rank>
+                        </value>
+                        <value id="mini">
+                            <code>mini</code>
+                            <rank>20</rank>
+                        </value>
+                        <value id="micro">
+                            <code>micro</code>
+                            <rank>30</rank>
+                        </value>
+                        <value id="nano">
+                            <code>nano</code>
+                            <rank>40</rank>
+                        </value>
+                        <value id="esim">
+                            <code>esim</code>
+                            <rank>50</rank>
+                        </value>
+                    </values>
+                    <is_null_allowed>true</is_null_allowed>
+                    <default_value/>
+                    <display_style>list</display_style>
+                </field>
+                <field id="simcard_id" xsi:type="AttributeExternalKey" _delta="define">
+                    <sql>simcard_id</sql>
+                    <target_class>SimCard</target_class>
+                    <filter><![CDATA[SELECT SimCard AS c WHERE c.org_id = :this->org_id AND
+                               (IF (:this->simcard_format = 'full', c.format IN ('full', 'full_to_micro', 'full_to_nano'),
+                                    (IF (:this->simcard_format = 'micro', c.format IN ('micro', 'full_to_micro'),
+                                         (IF (:this->simcard_format = 'nano', c.format IN ('nano', 'full_to_nano', 'micro_to_nano'),
+                                              c.format = :this->simcard_format
+                                         ))
+                                    ))
+                               ))]]>
+                    </filter>
+                    <dependencies>
+                        <attribute id="org_id"/>
+                        <attribute id="simcard_format"/>
+                    </dependencies>
+                    <is_null_allowed>true</is_null_allowed>
+                    <allow_target_creation>true</allow_target_creation>
+                    <on_target_delete>DEL_AUTO</on_target_delete>
+                </field>
+                <field id="simcard_name" xsi:type="AttributeExternalField" _delta="define">
+                    <extkey_attcode>simcard_id</extkey_attcode>
+                    <target_attcode>name</target_attcode>
+                </field>
+            </fields>
+            <presentation>
+                <details _delta="redefine">
+                    <items>
+                        <item id="col:col1">
+                            <rank>10</rank>
+                            <items>
+                                <item id="fieldset:Peripheral:baseinfo">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="name">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="org_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="status">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="business_criticity">
+                                            <rank>50</rank>
+                                        </item>
+                                        <item id="location_id">
+                                            <rank>60</rank>
+                                        </item>
+                                        <item id="description">
+                                            <rank>70</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:Peripheral:hwinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="brand_id">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="model_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="serialnumber">
+                                            <rank>30</rank>
+                                        </item>
+                                        <item id="asset_number">
+                                            <rank>40</rank>
+                                        </item>
+                                        <item id="macaddress">
+                                            <rank>50</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="col:col2">
+                            <rank>20</rank>
+                            <items>
+                                <item id="fieldset:Peripheral:date">
+                                    <rank>10</rank>
+                                    <items>
+                                        <item id="move2production">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="purchase_date">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="end_of_warranty">
+                                            <rank>30</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                                <item id="fieldset:Peripheral:techinfo">
+                                    <rank>20</rank>
+                                    <items>
+                                        <item id="simcard_format">
+                                            <rank>10</rank>
+                                        </item>
+                                        <item id="simcard_id">
+                                            <rank>20</rank>
+                                        </item>
+                                        <item id="ipaddress_id">
+                                            <rank>30</rank>
+                                        </item>
+                                    </items>
+                                </item>
+                            </items>
+                        </item>
+                        <item id="contacts_list">
+                            <rank>30</rank>
+                        </item>
+                        <item id="documents_list">
+                            <rank>30</rank>
+                        </item>
+                    </items>
+                </details>
+            </presentation>
+        </class>
+        <class id="PhysicalDevice" _delta="must_exist">
+            <event_listeners>
+                <event_listener id="OnPhysicalDeviceAfterWriteRequestedByEndUsersDevicesExtendedMgmt" _delta="define">
+                    <event>EVENT_DB_AFTER_WRITE</event>
+                    <callback>OnPhysicalDeviceAfterWriteRequestedByEndUsersDevicesExtendedMgmt</callback>
+                    <rank>100</rank>
+                </event_listener>
+                <event_listener id="OnPhysicalDeviceAfterDeleteRequestedByEndUsersDevicesExtendedMgmt" _delta="define">
+                    <event>EVENT_DB_AFTER_DELETE</event>
+                    <callback>OnPhysicalDeviceAfterDeleteRequestedByEndUsersDevicesExtendedMgmt</callback>
+                    <rank>100</rank>
+                </event_listener>
+            </event_listeners>
+            <methods>
+                <method id="SetPhysicalDeviceOnSimCard" _delta="define">
+                    <comment/>
+                    <static>false</static>
+                    <access>private</access>
+                    <type>custom</type>
+                    <code><![CDATA[    public function SetPhysicalDeviceOnSimCard($iSimCardId)
+    {
+			if ($iSimCardId > 0) {
+				$sOQL = "SELECT SimCard AS s WHERE s.id = :id";
+				$oSimCardSet = new CMDBObjectSet(DBObjectSearch::FromOQL($sOQL), array(), array('id' => $iSimCardId));
+				if ($oSimCard = $oSimCardSet->Fetch()) {
+					$oSimCard->Set('physicaldevice_id', $this->GetKey());
+					$oSimCard->DBUpdate();
+				}
+			}
+    }]]></code>
+                </method>
+                <method id="ResetPhysicalDeviceOnSimCard" _delta="define">
+                    <comment/>
+                    <static>false</static>
+                    <access>private</access>
+                    <type>custom</type>
+                    <code><![CDATA[    public function ResetPhysicalDeviceOnSimCard($iSimCardId)
+    {
+			if ($iSimCardId > 0) {
+				$sOQL = "SELECT SimCard AS s WHERE s.id = :id";
+       			$oSimCardSet = new CMDBObjectSet(DBObjectSearch::FromOQL($sOQL), array(), array('id' => $iSimCardId));
+				if ($oSimCard = $oSimCardSet->Fetch()) {
+				    if ($oSimCard->Get('physicaldevice_id') == $this->GetKey()) {
+					    $oSimCard->Set('physicaldevice_id', 0);
+					    $oSimCard->DBUpdate();
+					}
+				}
+			}
+    }]]></code>
+                </method>
+                <method id="OnPhysicalDeviceAfterWriteRequestedByEndUsersDevicesExtendedMgmt" _delta="define">
+                    <comment/>
+                    <static>false</static>
+                    <access>public</access>
+                    <type>EventListener</type>
+                    <code><![CDATA[    public function OnPhysicalDeviceAfterWriteRequestedByEndUsersDevicesExtendedMgmt(Combodo\iTop\Service\Events\EventData $oEventData)
+    {
+        $sClass = get_class($this);
+        if ($sClass == 'MobilePhone') {
+            // Process the case of mobile phones first
+            $aEventData = $oEventData->GetEventData();
+            if ($aEventData['is_new']) {
+                // We are in the AfterInsert situation
+                $this->SetPhysicalDeviceOnSimCard($this->Get('simcard1_id'));
+                $this->SetPhysicalDeviceOnSimCard($this->Get('simcard2_id'));
+            } else {
+                // We are in the AfterUpdate situation
+                $aChanges = $this->ListPreviousValuesForUpdatedAttributes();
+                if (array_key_exists('simcard1_id', $aChanges)) {
+                    $this->ResetPhysicalDeviceOnSimCard($aChanges['simcard1_id']);
+                    $this->SetPhysicalDeviceOnSimCard($this->Get('simcard1_id'));
+                }
+                if (array_key_exists('simcard2_id', $aChanges)) {
+                    $this->ResetPhysicalDeviceOnSimCard($aChanges['simcard2_id']);
+                    $this->SetPhysicalDeviceOnSimCard($this->Get('simcard2_id'));
+                }
+            }
+        } else {
+            $aDevicesWithSimCard = explode(',', DEVICES_WITH_SIMCARD);
+            if (in_array(get_class($this), $aDevicesWithSimCard) && in_array('simcard_id', MetaModel::GetAttributesList($sClass))) {
+                // Process the other CIs with sim cards next
+                $aEventData = $oEventData->GetEventData();
+                if ($aEventData['is_new']) {
+                    // We are in the AfterInsert situation
+                    $this->SetPhysicalDeviceOnSimCard($this->Get('simcard_id'));
+                } else {
+                    // We are in the AfterUpdate situation
+                    $aChanges = $this->ListPreviousValuesForUpdatedAttributes();
+                    if (array_key_exists('simcard_id', $aChanges)) {
+                        $this->ResetPhysicalDeviceOnSimCard($aChanges['simcard_id']);
+                        $this->SetPhysicalDeviceOnSimCard($this->Get('simcard_id'));
+                    }
+                }
+            }
+        }
+    }]]></code>
+                </method>
+                <method id="OnPhysicalDeviceAfterDeleteRequestedByEndUsersDevicesExtendedMgmt" _delta="define">
+                    <comment/>
+                    <static>false</static>
+                    <access>public</access>
+                    <type>EventListener</type>
+                    <code><![CDATA[    public function OnPhysicalDeviceAfterDeleteRequestedByEndUsersDevicesExtendedMgmt(Combodo\iTop\Service\Events\EventData $oEventData)
+    {
+        $sClass = get_class($this);
+        if ($sClass == 'MobilePhone') {
+            // Process the case of mobile phones first
+ 		    $this->ResetPhysicalDeviceOnSimCard($this->Get('simcard1_id'));
+		    $this->ResetPhysicalDeviceOnSimCard($this->Get('simcard2_id'));
+		} else {
+            $aDevicesWithSimCard = explode(',', DEVICES_WITH_SIMCARD);
+            if (in_array(get_class($this), $aDevicesWithSimCard) && in_array('simcard_id', MetaModel::GetAttributesList(get_class($this)))) {
+                // Process the other CIs with sim cards next
+		        $this->ResetPhysicalDeviceOnSimCard($this->Get('simcard_id'));
+		    }
+		}
+    }]]></code>
+                </method>
+            </methods>
+        </class>
     </classes>
     <menus>
         <menu id="ConfigManagementOverview" _delta="must_exist">
