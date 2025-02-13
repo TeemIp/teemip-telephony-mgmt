@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.2" load="strict">
+    <constants>
+        <constant id="DEVICES_WITH_SIMCARD" xsi:type="string" _delta="define">MobilePhone,NetworkDevice,Peripheral,PC,Tablet</constant>
+    </constants>
     <classes>
         <class id="SimCard" _delta="define">
             <parent>PhysicalDevice</parent>
@@ -139,7 +142,7 @@
                 <field id="physicaldevice_id" xsi:type="AttributeExternalKey">
                     <sql>physicaldevice_id</sql>
                     <target_class>PhysicalDevice</target_class>
-                    <filter>SELECT PhysicalDevice AS pd WHERE pd.finalclass IN ('MobilePhone', 'PC', 'Tablet') AND pd.org_id = :this->org_id</filter>
+                    <filter/>
                     <dependencies>
                         <attribute id="org_id"/>
                     </dependencies>
