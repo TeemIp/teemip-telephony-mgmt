@@ -1582,7 +1582,7 @@
                         <dashlets>
                             <dashlet id="teemip-210" xsi:type="DashletHeaderStatic">
                                 <rank>10</rank>
-                                <title>Menu:TelefonySpace:Devices</title>
+                                <title>Menu:TelefonySpace:TelephonyDevices</title>
                                 <icon>teemip-phone-number-mgmt/asset/img/icons8-internet-folder-48.png</icon>
                             </dashlet>
                             <dashlet id="teemip-220" xsi:type="DashletBadge">
@@ -1600,6 +1600,36 @@
                             <dashlet id="teemip-250" xsi:type="DashletBadge">
                                 <rank>50</rank>
                                 <class>SimCard</class>
+                            </dashlet>
+                        </dashlets>
+                    </cell>
+                    <cell id="teemip-300" _delta="define">
+                        <rank>30</rank>
+                        <dashlets>
+                            <dashlet id="teemip-310" xsi:type="DashletHeaderStatic">
+                                <rank>10</rank>
+                                <title>Menu:TelefonySpace:DevicesWithSIM</title>
+                                <icon>teemip-phone-number-mgmt/asset/img/icons8-internet-folder-48.png</icon>
+                            </dashlet>
+                            <dashlet id="teemip-320" xsi:type="DashletBadgeFiltered">
+                                <rank>20</rank>
+                                <title>Title:DevicesWithSIM:NetworkDevice</title>
+                                <query>SELECT NetworkDevice AS d WHERE d.simcard_id > 0</query>
+                            </dashlet>
+                            <dashlet id="teemip-330" xsi:type="DashletBadgeFiltered">
+                                <rank>30</rank>
+                                <title>Title:DevicesWithSIM:Peripheral</title>
+                                <query>SELECT Peripheral AS d WHERE d.simcard_id > 0</query>
+                            </dashlet>
+                            <dashlet id="teemip-340" xsi:type="DashletBadgeFiltered">
+                                <rank>40</rank>
+                                <title>Title:DevicesWithSIM:PC</title>
+                                <query>SELECT PC AS d WHERE d.simcard_id > 0</query>
+                            </dashlet>
+                            <dashlet id="teemip-350" xsi:type="DashletBadgeFiltered">
+                                <rank>50</rank>
+                                <title>Title:DevicesWithSIM:Tablet</title>
+                                <query>SELECT Tablet AS d WHERE d.simcard_id > 0</query>
                             </dashlet>
                         </dashlets>
                     </cell>

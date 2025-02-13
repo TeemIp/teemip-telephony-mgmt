@@ -205,6 +205,11 @@ Dict::Add('EN US', 'English', 'English', array(
 //
 
 Dict::Add('EN US', 'English', 'English', array(
-    'Menu:TelefonySpace:Devices' => 'Telephony Devices',
+    'Menu:TelefonySpace:TelephonyDevices' => 'Telephony Devices',
+    'Menu:TelefonySpace:DevicesWithSIM' => 'Devices with a SIM Card',
+    'Title:DevicesWithSIM:NetworkDevice' => 'Network devices',
+    'Title:DevicesWithSIM:PC' => 'PC',
+    'Title:DevicesWithSIM:Peripheral' => 'Peripheral',
+    'Title:DevicesWithSIM:Tablet' => 'Tablet',
 ));
 
