@@ -10,7 +10,7 @@
 
 Dict::Add('EN US', 'English', 'English', array(
     'Class:SimCard' => 'SIM Card',
-    'Class:SimCard+' => 'SIM Card that may be linked to a Mobile Phone, Tablet or PC',
+    'Class:SimCard+' => 'SIM Card that may be linked to a physial device like mobile phone, tablet, PC...',
     'SimCard:baseinfo' => 'General Information',
     'SimCard:techinfo' => 'Technical Information',
     'SimCard:date' => 'Dates',
@@ -118,7 +118,7 @@ Dict::Add('EN US', 'English', 'English', array(
     'Class:PC/Attribute:simcard_format/Value:esim' => 'Embedded-SIM',
     'Class:PC/Attribute:simcard_format/Value:esim+' => 'eSIM',
     'Class:PC/Attribute:simcard_id' => 'SIM Card',
-    'Class:PC/Attribute:simcard_id+' => 'IM Card of the PC',
+    'Class:PC/Attribute:simcard_id+' => 'SIM Card of the PC',
     'Class:PC/Attribute:simcard_name' => 'Name of the SIM Card',
     'Class:PC/Attribute:simcard_name+' => '',
 ));
@@ -168,7 +168,7 @@ Dict::Add('EN US', 'English', 'English', array(
     'Class:Peripheral/Attribute:simcard_format/Value:esim' => 'Embedded-SIM',
     'Class:Peripheral/Attribute:simcard_format/Value:esim+' => 'eSIM',
     'Class:Peripheral/Attribute:simcard_id' => 'SIM Card',
-    'Class:Peripheral/Attribute:simcard_id+' => 'SIM Card of the tablet',
+    'Class:Peripheral/Attribute:simcard_id+' => 'SIM Card of the peripheral',
     'Class:Peripheral/Attribute:simcard_name' => 'Name of the SIM Card',
     'Class:Peripheral/Attribute:simcard_name+' => '',
     'Peripheral:baseinfo' => 'General Information',
@@ -208,8 +208,8 @@ Dict::Add('EN US', 'English', 'English', array(
     'Menu:TelefonySpace:TelephonyDevices' => 'Telephony Devices',
     'Menu:TelefonySpace:DevicesWithSIM' => 'Devices with a SIM Card',
     'Title:DevicesWithSIM:NetworkDevice' => 'Network devices',
-    'Title:DevicesWithSIM:PC' => 'PC',
-    'Title:DevicesWithSIM:Peripheral' => 'Peripheral',
-    'Title:DevicesWithSIM:Tablet' => 'Tablet',
+    'Title:DevicesWithSIM:PC' => 'PCs',
+    'Title:DevicesWithSIM:Peripheral' => 'Peripherals',
+    'Title:DevicesWithSIM:Tablet' => 'Tablets',
 ));
 
