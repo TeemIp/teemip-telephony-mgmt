@@ -535,6 +535,27 @@
                         <attribute id="lastnumber"/>
                     </attributes>
                 </reconciliation>
+                <uniqueness_rules>
+                    <rule id="no_duplicate_name">
+                        <attributes>
+                            <attribute id="org_id"/>
+                            <attribute id="name"/>
+                        </attributes>
+                        <filter/>
+                        <disabled>false</disabled>
+                        <is_blocking>true</is_blocking>
+                    </rule>
+                    <rule id="no_duplicate_range">
+                        <attributes>
+                            <attribute id="org_id"/>
+                            <attribute id="firstnumber"/>
+                            <attribute id="lastnumber"/>
+                        </attributes>
+                        <filter/>
+                        <disabled>false</disabled>
+                        <is_blocking>true</is_blocking>
+                    </rule>
+                </uniqueness_rules>
             </properties>
             <fields>
                 <field id="parent_org_id" xsi:type="AttributeExternalKey">
@@ -592,6 +613,28 @@
                     <edit_mode>none</edit_mode>
                 </field>
             </fields>
+            <event_listeners>
+                <event_listener id="OnPNRangeComputeValuesRequestedByPhoneNumberMgmt">
+                    <event>EVENT_DB_COMPUTE_VALUES</event>
+                    <callback>OnPNRangeComputeValuesRequestedByPhoneNumberMgmt</callback>
+                    <rank>100</rank>
+                </event_listener>
+                <event_listener id="OnPNRangeSetAttributesFlagsRequestedByPhoneNumberMgmt">
+                    <event>EVENT_DB_SET_ATTRIBUTES_FLAGS</event>
+                    <callback>OnPNRangeSetAttributesFlagsRequestedByPhoneNumberMgmt</callback>
+                    <rank>100</rank>
+                </event_listener>
+                <event_listener id="OnPNRangeCheckToWriteRequestedByPhoneNumberMgmt">
+                    <event>EVENT_DB_CHECK_TO_WRITE</event>
+                    <callback>OnPNRangeCheckToWriteRequestedByPhoneNumberMgmt</callback>
+                    <rank>110</rank>
+                </event_listener>
+                <event_listener id="OnPNRangeAfterWriteRequestedByPhoneNumberMgmt">
+                    <event>EVENT_DB_AFTER_WRITE</event>
+                    <callback>OnPNRangeAfterWriteRequestedByPhoneNumberMgmt</callback>
+                    <rank>120</rank>
+                </event_listener>
+            </event_listeners>
             <methods/>
             <presentation>
                 <details>

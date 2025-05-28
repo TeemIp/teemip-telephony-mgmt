@@ -125,6 +125,8 @@ Dict::Add('EN US', 'English', 'English', array(
     'Class:PNRange/Attribute:occupancy+' => 'Percentage of phone numbers that belong to the range',
     'Class:PNRange/Attribute:phonenumbers_list' => 'Phone numbers',
     'Class:PNRange/Attribute:phonenumbers_list+' => 'All the pone numbers that belong to the range',
+    'Class:PNRange/UniquenessRule:no_duplicate_name' => 'The same Name already exist in the organization, duplicates are not allowed.',
+    'Class:PNRange/UniquenessRule:no_duplicate_range' => 'The same Range of numbers already exist in the organization: duplicates are not allowed',
 ));
 
 //
@@ -191,10 +193,21 @@ Dict::Add('EN US', 'English', 'English', array(
     // Creation Management
     'UI:PNManagement:Action:New:Domain:NameCollision' => 'Domain name already exists!',
 
-    // Display list of PNRanges
+    // Display tree of PNRanges
+    'UI:PNManagement:Action:DisplayTree:PNRange' => 'Display Tree',
+    'UI:PNManagement:Action:DisplayTree:PNRange+' => '',
+    'teemip-phone-number-mgmt/Operation:DisplayTree/Title' => 'Display Tree',
+    'UI:PhoneNumberManagement:Action:DisplayTree:Title' => 'Phone Number Ranges',
+    'UI:IPManagement:Action:DisplayTree:PNRange:OrgName' => 'Organization %1$s',
+
+    // Display pointers to previous and next PNRanges
+    'UI:PNManagement:Action:DisplayPrevious:PNRange' => 'Previous',
+    'UI:PNManagement:Action:DisplayNext:PNSubnet' => 'Next',
+
+
     'UI:PNManagement:Action:DisplayList:PNRange' => 'Display List',
     'UI:PNManagement:Action:DisplayList:PNRange+' => '',
-    'UI:PNManagement:Action:DisplayList:PNRange:PageTitle_Class' => 'Phone Number Ranges',
+    'UI:IPManagement:Action:DisplayList:PNRange:PageTitle_Class' => 'Phone Number Ranges',
     'UI:PNManagement:Action:DisplayList:PNRange:Title_Class' => 'Phone Number Ranges',
 
     // Display tree of PNRanges
@@ -202,7 +215,6 @@ Dict::Add('EN US', 'English', 'English', array(
     'UI:PNManagement:Action:DisplayTree:PNRange+' => '',
     'UI:IPManagement:Action:DisplayTree:PNRange:PageTitle_Class' => 'Phone Number Ranges',
     'UI:IPManagement:Action:DisplayTree:PNRange:Title_Class' => 'Phone Number Ranges',
-    'UI:IPManagement:Action:DisplayTree:PNRange:OrgName' => 'Organization %1$s',
 
 
 ));

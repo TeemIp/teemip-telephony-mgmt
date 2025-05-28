@@ -25,7 +25,8 @@ SetupWebPage::AddModule(
         //
         'datamodel' => array(
             'vendor/autoload.php',
-            'src/Hook/PNMgmtExtraMenus.php',
+            'src/Controller/PhoneNumberMgmtController.php',
+            'src/Hook/PhoneNumberMgmtOtherActions.php',
             'model.teemip-phone-number-mgmt.php',
         ),
         'data.struct' => array(//'data.struct.IPAudit.xml',
