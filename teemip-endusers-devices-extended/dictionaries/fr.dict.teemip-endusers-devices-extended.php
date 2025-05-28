@@ -206,7 +206,7 @@ Dict::Add('FR FR', 'French', 'Français', array(
 
 Dict::Add('FR FR', 'French', 'Français', array(
     'Menu:TelefonySpace:TelephonyDevices' => 'Equipements téléphonique',
-    'Menu:TelefonySpace:DevicesWithSIM' => 'Matériels équipé d\'une carte SIM',
+    'Menu:TelefonySpace:DevicesWithSIM' => 'Matériels équipés d\'une carte SIM',
     'Title:DevicesWithSIM:NetworkDevice' => 'Equipements réseaux',
     'Title:DevicesWithSIM:PC' => 'PCs',
     'Title:DevicesWithSIM:Peripheral' => 'Périphériques',
