@@ -6,6 +6,7 @@
 
 namespace TeemIp\TeemIp\Extension\PhoneNumberManagement\Controller;
 
+use ApplicationContext;
 use cmdbAbstractObject;
 use CMDBObjectSet;
 use Combodo\iTop\Application\TwigBase\Controller\Controller;
@@ -13,6 +14,7 @@ use DBObjectSearch;
 use DBObjectSet;
 use Dict;
 use Exception;
+use IssueLog;
 use MetaModel;
 use TeemIp\TeemIp\Extension\Framework\Helper\DisplayTree;
 use utils;
@@ -37,12 +39,13 @@ class CableMgmtController extends Controller
      */
     public function OperationDisplayTree()
     {
-        $sDelegatedNodesRendering = utils::ReadParam('delegated_nodes_rendering', 'folded', false, 'raw_data');
+        $iCurrentOrganization = utils::ReadParam('org_id', '', false, 'raw_data');
         $sFilter = utils::ReadParam('filter', '', false, 'raw_data');
-        $oDisplayTree = new DisplayTree();
+        $sDelegatedNodesRendering = utils::ReadParam('delegated_nodes_rendering', 'folded', false, 'raw_data');
 
+        $oDisplayTree = new DisplayTree();
         $aParams['Class'] = MetaModel::GetName('PNRange');
-        $aParams['sHtml'] = $oDisplayTree->GetTree('PNRange', '', $sDelegatedNodesRendering);;
+        $aParams['sHtml'] = $oDisplayTree->GetTree('PNRange', $iCurrentOrganization, $sDelegatedNodesRendering);;
 
         $aParams['sCancelURL'] = utils::GetAbsoluteUrlAppRoot().'pages/UI.php?operation=search&filter='.$sFilter;
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.2" load="strict">
+<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.2" load="strict"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/TeemIp/teemip-core-ip-mgmt/refs/heads/master/teemip-framework/doc/design.xsd">
     <classes>
         <class id="PNObject" _delta="define">
             <parent>cmdbAbstractObject</parent>
@@ -14,7 +15,6 @@
                 <naming>
                     <attributes/>
                 </naming>
-                <icon/>
                 <reconciliation>
                     <attributes>
                         <attribute id=""/>
@@ -252,7 +252,6 @@
                         <attribute id="contact_name"/>
                     </attributes>
                 </naming>
-                <icon/>
                 <reconciliation>
                     <attributes>
                         <attribute id="pnobject_id"/>
@@ -341,7 +340,6 @@
                         <attribute id="document_name"/>
                     </attributes>
                 </naming>
-                <icon/>
                 <reconciliation>
                     <attributes>
                         <attribute id="pnobject_id"/>
@@ -430,7 +428,6 @@
                         <attribute id="ticket_ref"/>
                     </attributes>
                 </naming>
-                <icon/>
                 <reconciliation>
                     <attributes>
                         <attribute id="pnobject_id"/>
@@ -560,7 +557,6 @@
             <fields>
                 <field id="parent_org_id" xsi:type="AttributeExternalKey">
                     <filter/>
-                    <dependencies/>
                     <sql>parent_org_id</sql>
                     <target_class>Organization</target_class>
                     <is_null_allowed>true</is_null_allowed>
@@ -581,7 +577,6 @@
                     <is_null_allowed>true</is_null_allowed>
                     <on_target_delete>DEL_MOVEUP</on_target_delete>
                     <filter><![CDATA[SELECT PNRange AS p WHERE p.org_id = :this->org_id]]></filter>
-                    <default_value>null</default_value>
                 </field>
                 <field id="parent_name" xsi:type="AttributeExternalField">
                     <extkey_attcode>parent_id</extkey_attcode>
@@ -731,20 +726,18 @@
                 </default_search>
                 <search>
                     <items>
-                        <items>
-                            <item id="name">
-                                <rank>10</rank>
-                            </item>
-                            <item id="firstnumber">
-                                <rank>20</rank>
-                            </item>
-                            <item id="lastnumber">
-                                <rank>30</rank>
-                            </item>
-                            <item id="org_id">
-                                <rank>40</rank>
-                            </item>
-                        </items>
+                        <item id="name">
+                            <rank>10</rank>
+                        </item>
+                        <item id="firstnumber">
+                            <rank>20</rank>
+                        </item>
+                        <item id="lastnumber">
+                            <rank>30</rank>
+                        </item>
+                        <item id="org_id">
+                            <rank>40</rank>
+                        </item>
                     </items>
                 </search>
                 <list>
@@ -926,17 +919,15 @@
                 </default_search>
                 <search>
                     <items>
-                        <items>
-                            <item id="number">
-                                <rank>10</rank>
-                            </item>
-                            <item id="pnrange_id">
-                                <rank>20</rank>
-                            </item>
-                            <item id="org_id">
-                                <rank>30</rank>
-                            </item>
-                        </items>
+                        <item id="number">
+                            <rank>10</rank>
+                        </item>
+                        <item id="pnrange_id">
+                            <rank>20</rank>
+                        </item>
+                        <item id="org_id">
+                            <rank>30</rank>
+                        </item>
                     </items>
                 </search>
                 <list>
@@ -1091,17 +1082,15 @@
                 </default_search>
                 <search>
                     <items>
-                        <items>
-                            <item id="number">
-                                <rank>10</rank>
-                            </item>
-                            <item id="phonenumber_id">
-                                <rank>20</rank>
-                            </item>
-                            <item id="org_id">
-                                <rank>30</rank>
-                            </item>
-                        </items>
+                        <item id="number">
+                            <rank>10</rank>
+                        </item>
+                        <item id="phonenumber_id">
+                            <rank>20</rank>
+                        </item>
+                        <item id="org_id">
+                            <rank>30</rank>
+                        </item>
                     </items>
                 </search>
                 <list>
