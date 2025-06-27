@@ -173,8 +173,9 @@ class _PNRange extends PNObject {
         if ($aEventData['is_new']) {
             // Look for all ranges attached to the parent of the range being created and contained in it
             // Attach them to the new range
-            $sOQL = "SELECT PNRange AS r WHERE r.parent_id = :paren_id AND :firstnumber <= r.firstnumber AND r.lastnumber <= :lastnumber AND (r.org_id = :org_id OR r.parent_org_id = :org_id) AND r.id != :id";
+            $sOQL = "SELECT PNRange AS r WHERE r.parent_id = :parent_id AND :firstnumber <= r.firstnumber AND r.lastnumber <= :lastnumber AND (r.org_id = :org_id OR r.parent_org_id = :org_id) AND r.id != :id";
             $oPNRangeSet = new CMDBObjectSet(DBObjectSearch::FromOQL($sOQL), array(), array(
+                'parent_id' => $iParentOrgId,
                 'firstnumber' => $sFirstNumber,
                 'lastnumber' => $sLastNumber,
                 'org_id' => $iOrgId,
