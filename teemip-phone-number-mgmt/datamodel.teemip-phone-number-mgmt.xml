@@ -138,14 +138,14 @@
                 </field>
             </fields>
             <event_listeners>
-                <event_listener id="OnPNObjectBeforeWriteRequestedByPNObject">
+                <event_listener id="OnPNObjectBeforeWriteRequestedByPhoneNumberMgmt">
                     <event>EVENT_DB_BEFORE_WRITE</event>
                     <callback>OnPNObjectBeforeWriteRequestedByPNObject</callback>
                     <rank>100</rank>
                 </event_listener>
             </event_listeners>
             <methods>
-                <method id="OnPNObjectBeforeWriteRequestedByPNObject">
+                <method id="OnPNObjectBeforeWriteRequestedByPhoneNumberMgmt">
                     <comment/>
                     <static>false</static>
                     <access>public</access>
@@ -172,24 +172,6 @@
              }
 		}
     }]]></code>
-                </method>
-                <method id="ComputeValues">
-                    <comment/>
-                    <static>false</static>
-                    <access>protected</access>
-                    <type>Overload-cmdbAbstractObject</type>
-                    <code><![CDATA[ public function ComputeValues()
- {
- 		parent::ComputeValues();
-
-		if ($this->IsNew()) {
-			// Make sure IPConfig exists for the organization
-			//$iOrgId = $this->Get('org_id');
-			//if (($iOrgId != '') && ($this->Get('ipconfig_id') == '')) {
-			//	$this->Set('ipconfig_id', IPConfig::GetGlobalIPConfig($iOrgId)->GetKey());
-			//}
-		}
- }]]></code>
                 </method>
             </methods>
             <presentation>
@@ -834,15 +816,20 @@
                 </field>
             </fields>
             <event_listeners>
-                <event_listener id="OnPhoneNumberAfterWriteRequestedByPNRange">
+                <event_listener id="OnPhoneNumberAfterWriteRequestedByPhoneNumberMgmt">
                     <event>EVENT_DB_AFTER_WRITE</event>
-                    <callback>OnPhoneNumberAfterWriteRequestedByPNRange</callback>
+                    <callback>OnPhoneNumberAfterWriteRequestedByPhoneNumberMgmt</callback>
                     <rank>100</rank>
                 </event_listener>
-                <event_listener id="OnPhoneNumberAfterDeleteRequestedByPNRange">
+                <event_listener id="OnPhoneNumberAfterDeleteRequestedByPhoneNumberMgmt">
                     <event>EVENT_DB_AFTER_DELETE</event>
-                    <callback>OnPhoneNumberAfterDeleteRequestedByPNRange</callback>
+                    <callback>OnPhoneNumberAfterDeleteRequestedByPhoneNumberMgmt</callback>
                     <rank>110</rank>
+                </event_listener>
+                <event_listener id="OnPhoneNumberSetAttributesFlagsRequestedByPhoneNumberMgmt">
+                    <event>EVENT_DB_SET_ATTRIBUTES_FLAGS</event>
+                    <callback>OnPhoneNumberSetAttributesFlagsRequestedByPhoneNumberMgmt</callback>
+                    <rank>10</rank>
                 </event_listener>
             </event_listeners>
             <methods/>
@@ -1011,6 +998,13 @@
                     <is_null_allowed>false</is_null_allowed>
                 </field>
             </fields>
+            <event_listeners>
+                <event_listener id="OnPNExtensionSetAttributesFlagsRequestedByPhoneNumberMgmt">
+                    <event>EVENT_DB_SET_ATTRIBUTES_FLAGS</event>
+                    <callback>OnPNExtensionSetAttributesFlagsRequestedByPhoneNumberMgmt</callback>
+                    <rank>10</rank>
+                </event_listener>
+            </event_listeners>
             <methods/>
             <presentation>
                 <details>

@@ -6,22 +6,21 @@
 
 namespace TeemIp\TeemIp\Extension\PhoneNumberManagement\Model;
 
+use Combodo\iTop\Service\Events\EventData;
 use PNObject;
 
 class _PNExtension extends PNObject
 {
     /**
-     * @inheritdoc
+     * Event to set attribute flags.
+     *
+     * @param EventData $oEventData
+     * @return void
      */
-    public function GetAttributeFlags($sAttCode, &$aReasons = array(), $sTargetState = ''): string
+    public function OnPNExtensionSetAttributesFlagsRequestedByPhoneNumberMgmt(EventData $oEventData): void
     {
-        $sFlagsFromParent = parent::GetAttributeFlags($sAttCode, $aReasons, $sTargetState);
-        $aReadOnlyAttributes = array('org_id', 'phonenumber_id');
-
-        if (in_array($sAttCode, $aReadOnlyAttributes)) {
-            return (OPT_ATT_READONLY | $sFlagsFromParent);
-        }
-
-        return $sFlagsFromParent;
+        $this->AddAttributeFlags('org_id', OPT_ATT_READONLY);
+        $this->AddAttributeFlags('phonenumber_id', OPT_ATT_READONLY);
     }
+
 }

@@ -14,18 +14,16 @@ use PNObject;
 
 class _PhoneNumber extends PNObject {
     /**
-     * @inheritdoc
+     * Event to set attribute flags.
+     *
+     * @param EventData $oEventData
+     * @return void
      */
-    public function GetAttributeFlags($sAttCode, &$aReasons = array(), $sTargetState = ''): string
+    public function OnPhoneNumberSetAttributesFlagsRequestedByPhoneNumberMgmt(EventData $oEventData): void
     {
-        $sFlagsFromParent = parent::GetAttributeFlags($sAttCode, $aReasons, $sTargetState);
-        $aReadOnlyAttributes = array('org_id', 'pnrange_id', 'number');
-
-        if (in_array($sAttCode, $aReadOnlyAttributes)) {
-            return (OPT_ATT_READONLY | $sFlagsFromParent);
-        }
-
-        return $sFlagsFromParent;
+        $this->AddAttributeFlags('org_id', OPT_ATT_READONLY);
+        $this->AddAttributeFlags('pnrange_id', OPT_ATT_READONLY);
+        $this->AddAttributeFlags('number', OPT_ATT_READONLY);
     }
 
     /**
@@ -33,12 +31,8 @@ class _PhoneNumber extends PNObject {
      *
      * @param EventData $oEventData
      * @return void
-     * @throws \ArchivedObjectException
-     * @throws \CoreCannotSaveObjectException
-     * @throws \CoreException
-     * @throws \CoreUnexpectedValue
      */
-    public function OnPhoneNumberAfterWriteRequestedByPNRange(EventData $oEventData): void
+    public function OnPhoneNumberAfterWriteRequestedByPhoneNumberMgmt(EventData $oEventData): void
     {
         $aEventData = $oEventData->GetEventData();
         if ($aEventData['is_new']) {
@@ -57,12 +51,8 @@ class _PhoneNumber extends PNObject {
      *
      * @param EventData $oEventData
      * @return void
-     * @throws \ArchivedObjectException
-     * @throws \CoreCannotSaveObjectException
-     * @throws \CoreException
-     * @throws \CoreUnexpectedValue
      */
-    public function OnPhoneNumberAfterDeleteRequestedByPNRange(EventData $oEventData): void
+    public function OnPhoneNumberAfterDeleteRequestedByPhoneNumberMgmt(EventData $oEventData): void
     {
         // Update occupancy of PNRange
         $iRangeId = $this->Get('pnrange_id');
