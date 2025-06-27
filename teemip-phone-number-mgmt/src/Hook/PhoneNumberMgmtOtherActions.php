@@ -43,20 +43,23 @@ class PhoneNumberMgmtOtherActions implements iPopupMenuExtension
 				if ($sClass == 'PNRange') {
 					// Additional actions for PNRange
 					$operation = utils::ReadParam('operation', '');
-					$sFilter = $param->GetFilter()->serialize();
-					switch ($operation) {
+
+                    $oAppContext = new ApplicationContext();
+                    $iOrgId = $oAppContext->GetCurrentValue('org_id');
+                    $sFilter = $param->GetFilter()->serialize();
+ 					switch ($operation) {
 						case 'displaytree':
 							$aResult[] = new SeparatorPopupMenuItem();
 							$aParams['operation'] = 'displaylist';
 							$sMenu = 'UI:PNManagement:Action:DisplayList:PNRange';
-                            $aResult[] = new URLPopupMenuItem($sMenu, Dict::S($sMenu), utils::GetAbsoluteUrlAppRoot()."pages/UI.php?route=phone_number_mgmt.display_tree&filter=$sFilter");
+                            $aResult[] = new URLPopupMenuItem($sMenu, Dict::S($sMenu), utils::GetAbsoluteUrlAppRoot()."pages/UI.php?route=phone_number_mgmt.display_tree&params=$sParam");
 							break;
 
 						case 'displaylist':
 						default:
 							$aResult[] = new SeparatorPopupMenuItem();
 							$sMenu = 'UI:PNManagement:Action:DisplayTree:PNRange';
-                            $aResult[] = new URLPopupMenuItem($sMenu, Dict::S($sMenu), utils::GetAbsoluteUrlAppRoot()."pages/UI.php?route=phone_number_mgmt.display_tree&filter=$sFilter");
+                            $aResult[] = new URLPopupMenuItem($sMenu, Dict::S($sMenu), utils::GetAbsoluteUrlAppRoot()."pages/UI.php?route=phone_number_mgmt.display_tree&org_id=$iOrgId&filter=$sFilter");
 							break;
 					}
 				}
